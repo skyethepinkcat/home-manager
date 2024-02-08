@@ -78,9 +78,8 @@ $ nix-channel --update
 </code></pre></li><li class="listitem"><p>Run the Home Manager installation command and create the first Home
 Manager generation:</p><pre><code class="programlisting  shell">$ nix-shell &#x27;&lt;home-manager&gt;&#x27; -A install
 </code></pre><p>Once finished, Home Manager should be active and available in your
-user environment.</p></li></ol></div><div class="note"><h3 class="title">Note</h3><p>If you are running into issues here and added the channel as a user, try
-including <code class="literal">-I ~/.nix-defexpr/channels/</code> at the end of the command. Your
-<code class="literal">$NIX_PATH</code> may not include <code class="literal">~/.nix-defexpr/channels</code>.</p></div><div class="orderedlist"><ol class="orderedlist " start="4" type="1"><li class="listitem"><p>If you do not plan on having Home Manager manage your shell
+user environment.</p></li></ol></div><div class="note"><h3 class="title">Note</h3><p>If you are having issues here related to home-manager not being found and added the channel as a user earlier, try running</p><pre><code class="programlisting  shell">$ nix-shell &#x27;&lt;home-manager&gt;&#x27; -A install -I ~/.nix-defexpr/channels
+</code></pre><p>instead. This tells nix-shell to search the correct path.</p></div><div class="orderedlist"><ol class="orderedlist " start="4" type="1"><li class="listitem"><p>If you do not plan on having Home Manager manage your shell
 configuration then you must source the</p><pre><code class="programlisting  bash">$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
 </code></pre><p>file in your shell configuration. Alternatively source</p><pre><code class="programlisting  bash">/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
 </code></pre><p>when managing home configuration together with system configuration.</p><p>This file can be sourced directly by POSIX.2-like shells such as

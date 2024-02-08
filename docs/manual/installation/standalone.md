@@ -37,9 +37,11 @@
     user environment.
     
 ::: {.note}
-If you are running into issues here and added the channel as a user, try
-including `-I ~/.nix-defexpr/channels/` at the end of the command. Your
-`$NIX_PATH` may not include `~/.nix-defexpr/channels`.
+If you are having issues here related to home-manager not being found and added the channel as a user earlier, try running
+``` shell
+$ nix-shell '<home-manager>' -A install -I ~/.nix-defexpr/channels
+```
+instead. This tells nix-shell to search the correct path.
 :::
 
 4.  If you do not plan on having Home Manager manage your shell

@@ -36,7 +36,7 @@
     Once finished, Home Manager should be active and available in your
     user environment.
     
-::: {.tip}
+::: {.note}
 If you are running into issues here and added the channel as a user, try
 including `-I ~/.nix-defexpr/channels/` at the end of the command. Your
 `$NIX_PATH` may not include `~/.nix-defexpr/channels`.

@@ -42,7 +42,7 @@ including `-I ~/.nix-defexpr/channels/` at the end of the command. Your
 `$NIX_PATH` may not include `~/.nix-defexpr/channels`.
 :::
 
-5.  If you do not plan on having Home Manager manage your shell
+4.  If you do not plan on having Home Manager manage your shell
     configuration then you must source the
 
     ``` bash

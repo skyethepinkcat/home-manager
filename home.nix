@@ -71,6 +71,7 @@ in rec {
         rustup
         treefmt
         neovim
+        neovide
         wireshark
       ]
       ++ [

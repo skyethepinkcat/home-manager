@@ -7,6 +7,19 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # adding the starter input here
+    nvchad-config = {
+      url = "git+ssh://git@github.com/skyethepinkcat/nvim";
+      flake = false;
+    };
+
+    nix4nvchad = {
+      url = "github:nix-community/nix4nvchad";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nvchad-starter.follows = "nvchad-config"; # <- overwrite the module input here
+    };
+
     flake-parts.url = "github:hercules-ci/flake-parts";
     # nixvim-config = {
     #   url = "git+ssh://git@github.com/skyethepinkcat/nixvim?ref=nvix";

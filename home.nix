@@ -22,8 +22,9 @@
       }
       // extraOptions);
 in rec {
-  imports = [./zsh ./vim ./ruby ./starship ./darwin ];
-	darwinConfig.enable = is_darwin;
+  imports = [./zsh ./vim ./ruby ./starship ./darwin inputs.nix4nvchad.homeManagerModule];
+  darwinConfig.enable = is_darwin;
+  programs.nvchad.enable = true;
   xdg = {
     enable = true;
     #    configHome = homedir + ".config";

@@ -29,8 +29,8 @@ in {
       expandtab = true;
     };
     plugins = with pkgs.vimPlugins; [
-      sensible
-      commentary
+      vim-sensible
+      vim-commentary
       vim-nix
       vim-puppet
       catppuccin-vim
@@ -39,14 +39,14 @@ in {
       set showmode
       set showmatch
       set hlsearch
-      colorscheme catppuccin_frappe
+      colorscheme catppuccin_mocha
       set nowrap
       set autoindent
       set nobackup
       set incsearch
       set showcmd
       " Don't wait for the x display on macos - severely hurts startup time
-      if $DISPLAY =~ 'xquartz'
+      if $DISPLAY =~ '.*xquartz.*'
        set clipboard=autoselect,exclude:.*
       endif
     '';

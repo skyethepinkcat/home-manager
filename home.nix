@@ -22,13 +22,21 @@
       }
       // extraOptions);
 in rec {
-  imports = [./zsh ./vim ./ruby ./starship ./darwin inputs.nix4nvchad.homeManagerModule];
+  imports = [./zsh ./vim ./ruby ./starship ./darwin ./neovim];
   darwinConfig.enable = is_darwin;
-  programs.nvchad.enable = true;
   xdg = {
     enable = true;
     #    configHome = homedir + ".config";
   };
+
+  neovim-config.enable = true;
+  neovim-config.packages = with pkgs; [
+    nil
+    alejandra
+    nodePackages.bash-language-server
+    rubocop
+    solargraph
+  ];
 
   # Look up home manager options here
   # https://home-manager-options.extranix.com
@@ -54,7 +62,6 @@ in rec {
 
     packages = with pkgs;
       [
-        alejandra
         bash-language-server
         coreutils
         lazygit
@@ -64,7 +71,6 @@ in rec {
         gnused
         gnutar
         mpv
-        nil
         openssl
         ripgrep
         rsync
@@ -73,6 +79,8 @@ in rec {
         neovim
         neovide
         wireshark
+        nil
+        alejandra
       ]
       ++ [
         (
@@ -120,6 +128,7 @@ in rec {
   };
 
   programs = {
+    gcc.enable = true;
     yazi = {
       enable = true;
     };

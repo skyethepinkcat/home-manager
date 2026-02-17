@@ -3,36 +3,35 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf mkOption types;
 
   cfg = config.programs.iterm2-shell-integration;
 
-  initFish =
-    if cfg.enableInteractive
-    then "interactiveShellInit"
-    else "shellInitLast";
-in {
-  meta.maintainers = [];
+  initFish = if cfg.enableInteractive then "interactiveShellInit" else "shellInitLast";
+in
+{
+  meta.maintainers = [ ];
 
   options.programs.iterm2shell = {
     enable = lib.mkEnableOption "iterm2shell";
 
-    package = lib.mkPackageOption pkgs "iterm2-shell-integration" {};
+    package = lib.mkPackageOption pkgs "iterm2-shell-integration" { };
 
-    enableBashIntegration = lib.hm.shell.mkBashIntegrationOption {inherit config;};
+    enableBashIntegration = lib.hm.shell.mkBashIntegrationOption { inherit config; };
 
-    enableFishIntegration = lib.hm.shell.mkFishIntegrationOption {inherit config;};
+    enableFishIntegration = lib.hm.shell.mkFishIntegrationOption { inherit config; };
 
-    enableIonIntegration = lib.hm.shell.mkIonIntegrationOption {inherit config;};
+    enableIonIntegration = lib.hm.shell.mkIonIntegrationOption { inherit config; };
 
-    enableNushellIntegration = lib.hm.shell.mkNushellIntegrationOption {inherit config;};
+    enableNushellIntegration = lib.hm.shell.mkNushellIntegrationOption { inherit config; };
 
-    enableZshIntegration = lib.hm.shell.mkZshIntegrationOption {inherit config;};
+    enableZshIntegration = lib.hm.shell.mkZshIntegrationOption { inherit config; };
   };
 
   config = mkIf cfg.enable {
-    home.packages = [cfg.package];
+    home.packages = [ cfg.package ];
 
     programs.bash.initExtra = mkIf cfg.enableBashIntegration ''
       if [[ $TERM != "dumb" ]]; then
@@ -66,7 +65,7 @@ in {
       # not done here.
       extraConfig = ''
         use ${
-          pkgs.runCommand "starship-nushell-config.nu" {} ''
+          pkgs.runCommand "starship-nushell-config.nu" { } ''
             ${lib.getExe cfg.package} init nu >> "$out"
           ''
         }

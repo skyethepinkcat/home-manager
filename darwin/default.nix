@@ -2,9 +2,11 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.darwinConfig;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     targets.darwin = {
       search = "DuckDuckGo";
@@ -19,7 +21,7 @@ in {
           IsAnalog = false;
           ShowDayOfWeek = false;
         };
-        NSGlobalDomain.AppleShowAllExtensions = true;
+        NSGlobalDomain.AppleShowAllExtensions = false;
       };
     };
   };

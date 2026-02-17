@@ -3,19 +3,19 @@
   lib,
   pkgs,
   ...
-}: let
-  catppuccin-vim =
-    pkgs.vimUtils.buildVimPlugin
-    {
-      name = "catppuccin-vim";
-      src = pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "vim";
-        rev = "fc2e9d853208621a94ec597c50bf559875bf6d99";
-        sha256 = "01yl0pxgdmwv8lwzv1g9chxw8ba3r678glgy5pb1c34zqll597q2";
-      };
+}:
+let
+  catppuccin-vim = pkgs.vimUtils.buildVimPlugin {
+    name = "catppuccin-vim";
+    src = pkgs.fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "vim";
+      rev = "fc2e9d853208621a94ec597c50bf559875bf6d99";
+      sha256 = "01yl0pxgdmwv8lwzv1g9chxw8ba3r678glgy5pb1c34zqll597q2";
     };
-in {
+  };
+in
+{
   programs.vim = {
     enable = true;
     defaultEditor = true;

@@ -3,26 +3,38 @@
   username,
   inputs,
   ...
-}: let
+}:
+let
   is_darwin =
-    if builtins.match ".*-(darwin|linux)" pkgs.stdenv.hostPlatform.system == ["darwin"]
-    then true
-    else false;
-  shell-script = {
-    script,
-    depends ? [],
-    extraOptions ? {}, # Pass raw options to writeShellApplication
-    ...
-  }:
-    pkgs.callPackage pkgs.writeShellApplication ({
+    if builtins.match ".*-(darwin|linux)" pkgs.stdenv.hostPlatform.system == [ "darwin" ] then
+      true
+    else
+      false;
+  shell-script =
+    {
+      script,
+      depends ? [ ],
+      extraOptions ? { }, # Pass raw options to writeShellApplication
+      ...
+    }:
+    pkgs.callPackage pkgs.writeShellApplication (
+      {
         name = "${script}";
         runtimeInputs = depends;
 
         text = builtins.readFile ./files/scripts/${script}.sh;
       }
-      // extraOptions);
-in rec {
-  imports = [./zsh ./vim ./ruby ./starship ./darwin ./neovim];
+      // extraOptions
+    );
+in
+rec {
+  imports = [
+    ./zsh
+    ./vim
+    ./starship
+    ./darwin
+    ./neovim
+  ];
   darwinConfig.enable = is_darwin;
   xdg = {
     enable = true;
@@ -32,8 +44,8 @@ in rec {
   neovim-config.enable = true;
   neovim-config.packages = with pkgs; [
     nil
-    alejandra
     nodePackages.bash-language-server
+    nixfmt
     rubocop
     solargraph
   ];
@@ -42,10 +54,7 @@ in rec {
   # https://home-manager-options.extranix.com
   home = {
     username = username;
-    homeDirectory =
-      if is_darwin
-      then "/Users/${home.username}"
-      else "/home/${home.username}";
+    homeDirectory = if is_darwin then "/Users/${home.username}" else "/home/${home.username}";
 
     sessionPath = [
       "${home.homeDirectory}/.local/bin"
@@ -60,7 +69,8 @@ in rec {
       JAVA_HOME = "/opt/homebrew/opt/openjdk";
     };
 
-    packages = with pkgs;
+    packages =
+      with pkgs;
       [
         bash-language-server
         coreutils
@@ -76,35 +86,33 @@ in rec {
         rsync
         rustup
         treefmt
-        neovim
         neovide
         wireshark
         nil
-        alejandra
       ]
       ++ [
-        (
-          shell-script
-          {
-            script = "forgethost";
-            depends = with pkgs; [gnused];
-          }
-        )
-        (
-          shell-script
-          {
-            script = "sniff";
-            depends = with pkgs; [openssh wireshark];
-          }
-        )
-        (
-          shell-script
-          {
-            script = "puppet-fmt";
-            extraOptions.bashOptions = ["nounset"];
-          }
-        )
-        #inputs.nixvim-config.packages.${pkgs.system}.default
+        (shell-script {
+          script = "forgethost";
+          depends = with pkgs; [ gnused ];
+        })
+        (shell-script {
+          script = "sniff";
+          depends = with pkgs; [
+            openssh
+            wireshark
+          ];
+        })
+        (shell-script {
+          script = "puppet-fmt";
+          extraOptions.bashOptions = [ "nounset" ];
+        })
+        (shell-script {
+          script = "nr";
+        })
+        (shell-script {
+          script = "ns";
+        })
+        inputs.nixvim-config.packages.${pkgs.system}.default
       ];
     #
     # This value determines the Home Manager release that your
@@ -131,17 +139,9 @@ in rec {
     gcc.enable = true;
     yazi = {
       enable = true;
+      shellWrapperName = "yy";
     };
 
-    kakoune = {
-      enable = true;
-      colorSchemePackage = pkgs.kakounePlugins.kakoune-catppuccin;
-      config = {
-        colorScheme = "catppuccin_mocha";
-      };
-    };
-
-    pyenv.enable = true;
     bash.enable = true;
 
     eza = {

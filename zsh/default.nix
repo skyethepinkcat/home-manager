@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: rec {
+}:
+rec {
   programs.zsh = {
     enable = true;
     dotDir = "${config.xdg.configHome}/zsh";
@@ -28,14 +29,17 @@
     };
     historySubstringSearch = {
       enable = true;
-      searchUpKey = ["^[[A" "^P"];
-      searchDownKey = ["^[[B" "^N"];
+      searchUpKey = [
+        "^[[A"
+        "^P"
+      ];
+      searchDownKey = [
+        "^[[B"
+        "^N"
+      ];
     };
     defaultKeymap = "emacs";
 
-    # syntaxHighlighting = {
-    #   enable = true;
-    # };
     plugins = [
       {
         name = "fast-syntax-highlighting";
@@ -49,11 +53,15 @@
       }
     ];
 
-    initContent = let
-      # Functions to set the window title.
-      normalTitle = lib.mkOrder 1000 (lib.readFile ./win_title_functions.zsh);
-      lateTitle = lib.mkOrder 1500 "precmd_functions+=(set_win_title)";
-    in
-      lib.mkMerge [normalTitle lateTitle];
+    initContent =
+      let
+        # Functions to set the window title.
+        normalTitle = lib.mkOrder 1000 (lib.readFile ./win_title_functions.zsh);
+        lateTitle = lib.mkOrder 1500 "precmd_functions+=(set_win_title)";
+      in
+      lib.mkMerge [
+        normalTitle
+        lateTitle
+      ];
   };
 }

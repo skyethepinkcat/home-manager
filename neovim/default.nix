@@ -4,16 +4,25 @@
   inputs,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.neovim-config;
-in {
-  imports = [inputs.nix4nvchad.homeManagerModule];
+in
+{
+  imports = [ inputs.nix4nvchad.homeManagerModule ];
   config = lib.mkIf cfg.enable {
     programs = {
       nvchad = {
         enable = true;
         hm-activation = true;
-        extraPackages = cfg.packages;
+        backup = false;
+        extraPackages =
+          with pkgs;
+          [
+            nixfmt
+            nil
+          ]
+          ++ cfg.packages;
       };
     };
   };
@@ -21,7 +30,7 @@ in {
     neovim-config = {
       enable = lib.mkEnableOption "Enable Module";
       packages = lib.mkOption {
-        default = [];
+        default = [ ];
         description = "Packages to include in the neovim environment";
       };
     };

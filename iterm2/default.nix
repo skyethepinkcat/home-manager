@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkOption types;
+  inherit (lib) mkIf;
 
   cfg = config.programs.iterm2-shell-integration;
 

@@ -7,4 +7,4 @@ for pkg in "$@"; do
     arr+=("nixpkgs#$pkg")
 done
 
-echo "${arr[@]}" | xargs nix shell --impure
+echo "${arr[@]}" | xargs echo

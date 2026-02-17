@@ -9,11 +9,15 @@ let
   cfg = config.neovim-config;
 in
 {
-  imports = [ inputs.nix4nvchad.homeManagerModule ];
+  imports = [
+    inputs.nix4nvchad.homeManagerModule
+    inputs.nixvim-config.homeModules.default
+    ./options.nix
+  ];
   config = lib.mkIf cfg.enable {
     programs = {
       nvchad = {
-        enable = true;
+        enable = cfg.use-nvchad;
         hm-activation = true;
         backup = false;
         extraPackages =
@@ -24,15 +28,18 @@ in
           ]
           ++ cfg.packages;
       };
-    };
-  };
-  options = {
-    neovim-config = {
-      enable = lib.mkEnableOption "Enable Module";
-      packages = lib.mkOption {
-        default = [ ];
-        description = "Packages to include in the neovim environment";
+      nixvim = {
+        enable = cfg.use-nixvim;
+        extraPackages = cfg.packages;
+      };
+
+      neovide = {
+        enable = true;
+        settings = {
+          fork = true;
+        };
       };
     };
   };
+
 }

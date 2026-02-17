@@ -58,10 +58,12 @@ rec {
         # Functions to set the window title.
         normalTitle = lib.mkOrder 1000 (lib.readFile ./win_title_functions.zsh);
         lateTitle = lib.mkOrder 1500 "precmd_functions+=(set_win_title)";
+        nix-shortcuts = lib.mkOrder 1000 (lib.readFile ./nix_shortcuts.zsh);
       in
       lib.mkMerge [
         normalTitle
         lateTitle
+        nix-shortcuts
       ];
   };
 }

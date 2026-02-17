@@ -2,9 +2,9 @@
   description = "Home Manager Configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -74,6 +74,7 @@
             packages = [
               pkgs.nil
               pkgs.nixfmt
+              pkgs.shfmt
             ];
           };
 

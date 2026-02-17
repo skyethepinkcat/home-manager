@@ -5,11 +5,8 @@
   ...
 }:
 let
-  is_darwin =
-    if builtins.match ".*-(darwin|linux)" pkgs.stdenv.hostPlatform.system == [ "darwin" ] then
-      true
-    else
-      false;
+  system = pkgs.stdenv.hostPlatform.system;
+  is_darwin = if builtins.match ".*-(darwin|linux)" system == [ "darwin" ] then true else false;
   shell-script =
     {
       script,
@@ -41,14 +38,18 @@ rec {
     #    configHome = homedir + ".config";
   };
 
-  neovim-config.enable = true;
-  neovim-config.packages = with pkgs; [
-    nil
-    nodePackages.bash-language-server
-    nixfmt
-    rubocop
-    solargraph
-  ];
+  neovim-config = {
+    enable = true;
+    use-nvchad = false;
+    use-nixvim = true;
+    packages = with pkgs; [
+      nil
+      nodePackages.bash-language-server
+      nixfmt
+      rubocop
+      solargraph
+    ];
+  };
 
   # Look up home manager options here
   # https://home-manager-options.extranix.com
@@ -109,10 +110,6 @@ rec {
         (shell-script {
           script = "nr";
         })
-        (shell-script {
-          script = "ns";
-        })
-        inputs.nixvim-config.packages.${pkgs.system}.default
       ];
     #
     # This value determines the Home Manager release that your

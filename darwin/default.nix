@@ -14,6 +14,7 @@ in
         "com.apple.finder" = {
           ShowPathBar = true;
           ShowStatusBar = true;
+          AppleShowAllExtensions = true;
         };
         "com.apple.Safari".IncludeDevelopMenu = true;
         "com.apple.menuextra.clock" = {
@@ -21,7 +22,7 @@ in
           IsAnalog = false;
           ShowDayOfWeek = false;
         };
-        NSGlobalDomain.AppleShowAllExtensions = false;
+        NSGlobalDomain.AppleShowAllExtensions = null;
       };
     };
   };

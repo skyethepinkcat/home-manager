@@ -169,16 +169,32 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1771008912,
-        "narHash": "sha256-gf2AmWVTs8lEq7z/3ZAsgnZDhWIckkb+ZnAo5RzSxJg=",
+        "lastModified": 1771207753,
+        "narHash": "sha256-b9uG8yN50DRQ6A7JdZBfzq718ryYrlmGgqkRm9OOwCE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a82ccc39b39b621151d6732718e3e250109076fa",
+        "rev": "d1c15b7d5806069da59e819999d70e1cec0760bf",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-unstable",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1771207753,
+        "narHash": "sha256-b9uG8yN50DRQ6A7JdZBfzq718ryYrlmGgqkRm9OOwCE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d1c15b7d5806069da59e819999d70e1cec0760bf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -186,10 +202,7 @@
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts_3",
-        "nixpkgs": [
-          "nixvim-config",
-          "nixpkgs"
-        ],
+        "nixpkgs": "nixpkgs_3",
         "systems": "systems_2"
       },
       "locked": {
@@ -213,11 +226,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1771440844,
-        "narHash": "sha256-seuscoXZRXLxHdqcvM97FAhjVC1a73L6RLZo40Lyuq4=",
+        "lastModified": 1771531725,
+        "narHash": "sha256-VA284DhR+SQVBdEK5lF/2oOrVbYDciZCVLFhHksoAUw=",
         "ref": "refs/heads/main",
-        "rev": "b78c4af70c1d3c1a553fc9600a5b10e5779be50e",
-        "revCount": 36,
+        "rev": "94ff27320461559976e00fb20e78f8686fd82d4f",
+        "revCount": 37,
         "type": "git",
         "url": "ssh://git@github.com/skyethepinkcat/nixvim"
       },

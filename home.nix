@@ -86,7 +86,6 @@ rec {
         rsync
         rustup
         treefmt
-        neovide
         wireshark
         nil
       ]

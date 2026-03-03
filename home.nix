@@ -75,6 +75,7 @@ rec {
       [
         bash-language-server
         coreutils
+        gnupg
         findutils
         ffmpeg
         fd
@@ -131,6 +132,43 @@ rec {
   };
 
   programs = {
+    ssh = {
+      enable = true;
+      enableDefaultConfig = false;
+      matchBlocks = {
+        "alborz.cs.umbc.edu vision*.cs.umbc.edu secrets.cs.umbc.edu" = {
+          user = "skye";
+          identityFile = "~/.ssh/umbc_id_rsa";
+          identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
+        };
+        "ebserv2.cs.umbc.edu" = {
+          user = "skyejonke";
+          identityFile = "~/.ssh/umbc_id_rsa";
+          identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
+          addKeysToAgent = "yes";
+        };
+        "*.umbc.edu" = {
+          user = "ii69854";
+          identityFile = "~/.ssh/umbc_id_rsa";
+          identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
+          addKeysToAgent = "yes";
+          sendEnv = [ "CSEE_USER" ];
+          checkHostIP = false;
+          extraOptions = {
+            "hostkeyAlgorithms" = "+ssh-rsa";
+            "pubkeyAcceptedKeyTypes" = "+ssh-rsa";
+          };
+        };
+        "honnoji asticassia lydian mayfaire skyenet.online" = {
+          user = "skye";
+        };
+        "*" = {
+          identityFile = "~/.ssh/id_ed25519";
+          identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
+          addKeysToAgent = "yes";
+        };
+      };
+    };
     lazygit = {
       enable = true;
       settings = {

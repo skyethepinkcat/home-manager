@@ -67,6 +67,7 @@ rec {
 
     sessionVariables = {
       BAT_THEME = "Catppuccin Mocha";
+      RUBY_YJIT_ENABLE = 1;
       CSEE_USER = home.username;
       JAVA_HOME = "/opt/homebrew/opt/openjdk";
     };

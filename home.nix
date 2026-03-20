@@ -165,6 +165,7 @@ rec {
           user = "skye";
         };
         "*" = {
+          sendEnv = [ "COLORTERM" ];
           identityFile = "~/.ssh/id_ed25519";
           identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
           addKeysToAgent = "yes";

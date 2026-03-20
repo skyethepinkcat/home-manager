@@ -215,6 +215,11 @@ rec {
       nix-direnv.enable = true;
     };
 
+    kitty = {
+      enable = true;
+      shellIntegration.enableZshIntegration = true;
+    };
+
     git = {
       enable = true;
       ignores = [

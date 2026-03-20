@@ -218,6 +218,12 @@ rec {
     kitty = {
       enable = true;
       shellIntegration.enableZshIntegration = true;
+      font = {
+        name = "Hack Nerd Font";
+        size = 14;
+        package = pkgs.nerd-fonts.hack;
+      };
+
     };
 
     git = {

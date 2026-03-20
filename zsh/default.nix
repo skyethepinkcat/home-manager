@@ -9,21 +9,24 @@ rec {
     enable = true;
     dotDir = "${config.xdg.configHome}/zsh";
     zprof.enable = false; # Enable to profile startup performance.
-    completionInit = ''
-      autoload -Uz compinit
-      if [ "$(find ${programs.zsh.dotDir}/.zcompdump -mtime +1)" ] ; then
-        echo regenerating
-          compinit
-      fi
-      compinit -C
-      zstyle ':completion:*:*:*:*:*' menu select
-      zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
-      #zstyle ':completion:*' list-colors '''
-      #zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-      zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
-      zstyle ':completion:*' use-cache yes
-      zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
-    '';
+    completionInit =
+      # zsh
+      ''
+        autoload -Uz compinit
+        if [ "$(find ${programs.zsh.dotDir}/.zcompdump -mtime +1)" ] ; then
+          echo regenerating
+            compinit
+        fi
+        compinit -C
+        zmodload -i zsh/complist
+        zstyle ':completion:*:*:*:*:*' menu select
+        zstyle ':completion:*' matcher-list  'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*' # Case insensitive, ignore separators, substring match.
+        zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS} # Load LS_COLORS as colors
+        zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+        zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+        zstyle ':completion:*' use-cache yes
+        zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
+      '';
     setOptions = [
       "NO_BEEP"
       "AUTO_LIST"
@@ -71,6 +74,7 @@ rec {
         normalTitle = lib.mkOrder 1000 (lib.readFile ./win_title_functions.zsh);
         lateTitle = lib.mkOrder 1500 "precmd_functions+=(set_win_title)";
         nix-shortcuts = lib.mkOrder 1000 (lib.readFile ./nix_shortcuts.zsh);
+
       in
       lib.mkMerge [
         normalTitle

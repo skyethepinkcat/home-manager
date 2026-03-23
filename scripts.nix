@@ -2,7 +2,7 @@
   callPackage,
   writeShellApplication,
   script,
-  depends ? [],
+  depends ? [ ],
   bashOptions ? [
     "errexit"
     "nounset"

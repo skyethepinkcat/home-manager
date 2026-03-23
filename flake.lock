@@ -234,11 +234,11 @@
         "skyepkgs": "skyepkgs"
       },
       "locked": {
-        "lastModified": 1773422381,
-        "narHash": "sha256-jz2Dt/+iQzANUdBOs84k4fv8xokI5w9tzE7RuPwP0cM=",
+        "lastModified": 1774028902,
+        "narHash": "sha256-OKRDDeFYDfs2ZDLCiWatg8X1kZlM11REbkE5QZWVWVM=",
         "ref": "refs/heads/main",
-        "rev": "4935c05c0962cee2b4a3ba76593d0f713cd5dbfe",
-        "revCount": 58,
+        "rev": "b32f5c6a6e3f73151262f124d0e0870ea86dd09d",
+        "revCount": 59,
         "type": "git",
         "url": "ssh://git@github.com/skyethepinkcat/nixvim"
       },

@@ -14,7 +14,6 @@
     ripgrep
     rsync
     rustup
-    treefmt
     wireshark
     nil
   ];

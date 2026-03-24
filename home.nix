@@ -4,7 +4,7 @@
   ...
 }:
 let
-  system = pkgs.stdenv.hostPlatform.system;
+  inherit (pkgs.stdenv.hostPlatform) system;
   is_darwin = if builtins.match ".*-(darwin|linux)" system == [ "darwin" ] then true else false;
   shell-script =
     {
@@ -55,7 +55,7 @@ rec {
   # Look up home manager options here
   # https://home-manager-options.extranix.com
   home = {
-    username = username;
+    inherit username;
     homeDirectory = if is_darwin then "/Users/${home.username}" else "/home/${home.username}";
 
     sessionPath = [
@@ -108,10 +108,9 @@ rec {
     shellAliases = {
       peek = "it2cat";
       ll = "ls -l";
-      nixconfig = "nvim ~/Projects/nix-config";
-      nvimconfig = "nvim ~/.config/nvim";
       neovim = "nvim";
       ckan = "ckan consoleui";
+      flake = "nix flake";
     };
   };
 

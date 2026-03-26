@@ -10,6 +10,7 @@
     gnused
     gnutar
     mpv
+    gitflow
     openssl
     ripgrep
     rsync

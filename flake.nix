@@ -2,11 +2,10 @@
   description = "Home Manager Configuration";
 
   inputs = {
-    # nixpkgs-stable.url = "github:NixOS/nixpkgs/release-25.11";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # adding the starter input here
@@ -25,7 +24,7 @@
 
     nixvim-config = {
       url = "git+ssh://git@github.com/skyethepinkcat/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -36,9 +35,6 @@
       home-manager,
       ...
     }:
-    let
-      nixpkgs = inputs.nixpkgs-unstable;
-    in
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"

@@ -32,6 +32,8 @@ rec {
     ./darwin
     ./neovim
   ];
+
+
   darwinConfig.enable = is_darwin;
   xdg = {
     enable = true;
@@ -227,4 +229,5 @@ rec {
 
     home-manager.enable = true;
   };
+  nixpkgs.config.allowUnfree = true;
 }

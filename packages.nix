@@ -1,7 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, lib, inputs, ... }:
 {
   home.packages = with pkgs; [
     bash-language-server
+    claude-code
     coreutils
     gnupg
     findutils
@@ -17,5 +18,6 @@
     rustup
     wireshark
     nil
+    claude-agent-acp
   ];
 }

@@ -1,9 +1,11 @@
 ---
 keys:
-  - &personal age1s7099uxssvte8gm8f96t4jkfnr8ea9a0cuv3fjcxec5uwgd5hvtqmzytpz
+  - &yubiwa age1s7099uxssvte8gm8f96t4jkfnr8ea9a0cuv3fjcxec5uwgd5hvtqmzytpz
+  - &honnoji age1fhp6wpshg7u8xz07qf76l5252nv3npwrn9evhrgxuqd37xjwcg8q4pvzzj
 
 creation_rules:
   - path_regex: secrets/.*\.yaml$
     key_groups:
       - age:
-          - *personal
+          - *yubiwa
+          - *honnoji

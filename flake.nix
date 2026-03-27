@@ -28,7 +28,7 @@
     };
 
     nixvim-config = {
-      url = "git+ssh://git@github.com/skyethepinkcat/nixvim";
+      url = "git+ssh://git@github.com/skyethepinkcat/nixvim?ref=develop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

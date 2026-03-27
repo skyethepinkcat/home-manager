@@ -234,11 +234,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1774554976,
-        "narHash": "sha256-RxrXGlEkBnk4TilMRoJcXwhZHg1rebMpA7UPDWlXz14=",
+        "lastModified": 1774631274,
+        "narHash": "sha256-XRcZRnb+7L9+BQwE3Mu8bYUnyCRDPAHWiFN6II6RCbk=",
         "ref": "refs/heads/main",
-        "rev": "4c8fcf89569db2bb44adf1f235986a923f4f3dcc",
-        "revCount": 67,
+        "rev": "d7e49b8b40fc0a0a133ca376c05f21e65a635fd3",
+        "revCount": 69,
         "type": "git",
         "url": "ssh://git@github.com/skyethepinkcat/nixvim"
       },
@@ -270,7 +270,8 @@
         "nix4nvchad": "nix4nvchad",
         "nixpkgs": "nixpkgs",
         "nixvim-config": "nixvim-config",
-        "nvchad-config": "nvchad-config"
+        "nvchad-config": "nvchad-config",
+        "sops-nix": "sops-nix"
       }
     },
     "skyepkgs": {
@@ -292,6 +293,26 @@
       "original": {
         "owner": "skyethepinkcat",
         "repo": "skyepkgs",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1774303811,
+        "narHash": "sha256-fhG4JAcLgjKwt+XHbjs8brpWnyKUfU4LikLm3s0Q/ic=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "614e256310e0a4f8a9ccae3fa80c11844fba7042",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     },

@@ -22,6 +22,11 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixvim-config = {
       url = "git+ssh://git@github.com/skyethepinkcat/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -75,6 +80,8 @@
               pkgs.nil
               pkgs.nixfmt
               pkgs.shfmt
+              pkgs.age
+              pkgs.sops
             ];
           };
 

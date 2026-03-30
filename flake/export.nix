@@ -31,16 +31,28 @@
     {
       pkgs,
       system,
-      self',
       ...
     }:
     let
+      # Build a home-manager config for the export, layering variants/export.nix
+      # on top of home.nix when the file exists. This is a separate evaluation
+      # from the standard homeConfigurations because the variant can change what
+      # HM generates (e.g. disabling programs whose configs shouldn't be exported).
+      mkHomeConfigForExport =
+        username:
+        inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules =
+            [ ../home.nix ./variants/export.nix ];
+          extraSpecialArgs = {
+            inherit system username inputs;
+          };
+        };
+
       mkDotfilesExport =
         username:
         let
-          # Re-use the homeConfigurations already evaluated by flake.nix rather
-          # than instantiating a second independent home-manager evaluation.
-          hmConfig = self'.legacyPackages.homeConfigurations.${username};
+          hmConfig = mkHomeConfigForExport username;
           homeDir = hmConfig.config.home.homeDirectory;
 
           # home.file entries type `executable` as nullable bool; coerce to bool

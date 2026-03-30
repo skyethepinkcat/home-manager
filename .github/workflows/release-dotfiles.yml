@@ -51,6 +51,7 @@ jobs:
 
             ```bash
             # Download and extract
+            mkdir -p /tmp/dotfiles
             curl -L https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/dotfiles-ii69854.tar.gz \
               | tar -xz -C /tmp/dotfiles
 

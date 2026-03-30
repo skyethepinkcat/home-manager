@@ -52,8 +52,6 @@ rec {
 
   neovim-config = {
     enable = true;
-    use-nvchad = false;
-    use-nixvim = true;
     packages = with pkgs; [
       nil
       nodePackages.bash-language-server

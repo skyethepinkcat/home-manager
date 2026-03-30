@@ -1,0 +1,73 @@
+name: Release dotfiles
+
+# Triggered by a version tag push, e.g. git tag v1.2 && git push --tags
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    name: Build & publish dotfiles
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write   # needed to create the GitHub release
+
+    steps:
+      # ── checkout ────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── Nix ─────────────────────────────────────────────────────────────
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v14
+
+      - name: Set up Nix cache (Determinate)
+        uses: DeterminateSystems/flakehub-cache-action@v1
+
+      # ── build ────────────────────────────────────────────────────────────
+      - name: Build dotfiles export (ii69854)
+        run: nix build .#dotfiles-ii69854 --out-link result-ii69854
+
+      - name: Build dotfiles export (skye)
+        run: nix build .#dotfiles-skye --out-link result-skye
+
+      # ── package ──────────────────────────────────────────────────────────
+      - name: Package as tarballs
+        run: |
+          tar -czf dotfiles-ii69854.tar.gz -C result-ii69854 .
+          tar -czf dotfiles-skye.tar.gz    -C result-skye    .
+
+      # ── release ──────────────────────────────────────────────────────────
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Dotfiles ${{ github.ref_name }}"
+          body: |
+            Portable dotfiles export built from commit `${{ github.sha }}`.
+
+            ## Install
+
+            ```bash
+            # Download and extract
+            curl -L https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/dotfiles-ii69854.tar.gz \
+              | tar -xz -C /tmp/dotfiles
+
+            # Dry-run (see what would be installed)
+            bash /tmp/dotfiles/install.sh
+
+            # Apply
+            bash /tmp/dotfiles/install.sh --apply
+            ```
+
+            ## Contents
+
+            All text-based config files managed by Home Manager, with Nix store
+            references rewritten or removed.  Compiled binaries and
+            Nix-specific files are excluded.  The Neovim config comes from the
+            `nvim-config-export` output of the `nixvim-config` flake.
+          files: |
+            dotfiles-ii69854.tar.gz
+            dotfiles-skye.tar.gz
+          fail_on_unmatched_files: true

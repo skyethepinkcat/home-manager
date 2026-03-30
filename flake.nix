@@ -8,18 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # adding the starter input here
-    nvchad-config = {
-      url = "git+ssh://git@github.com/skyethepinkcat/nvim";
-      flake = false;
-    };
-
-    nix4nvchad = {
-      url = "github:nix-community/nix4nvchad";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nvchad-starter.follows = "nvchad-config"; # <- overwrite the module input here
-    };
-
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     sops-nix = {
@@ -41,6 +29,10 @@
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        ./flake/export.nix
+      ];
+
       systems = [
         "x86_64-linux"
         "aarch64-linux"

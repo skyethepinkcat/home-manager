@@ -50,7 +50,13 @@
         let
           hmConfig = mkHomeConfig username;
           homeDir = hmConfig.config.home.homeDirectory; # e.g. /Users/ii69854
-          hmFiles = hmConfig.config.home.file;
+
+          # home.file entries have `executable` typed as nullable bool.
+          # Normalise it to a plain bool here so all downstream code can
+          # treat it as one without needing null-guard comparisons.
+          hmFiles = lib.mapAttrs (
+            _: v: v // { inherit (v) executable; }
+          ) hmConfig.config.home.file;
 
           # home.file keys can be either relative ("config/foo") or absolute
           # ("/Users/ii69854/.config/foo").  Normalise to a relative path, or
@@ -244,10 +250,10 @@
           '';
     in
     {
-      packages = {
-        dotfiles = mkDotfilesExport "ii69854";
+      packages = rec {
         dotfiles-ii69854 = mkDotfilesExport "ii69854";
         dotfiles-skye = mkDotfilesExport "skye";
+        dotfiles = mkDotfilesExport "skye";
       };
     };
 }

@@ -31,54 +31,39 @@
     {
       pkgs,
       system,
+      self',
       ...
     }:
     let
-      # Re-declare mkHomeConfig here so this module is self-contained.
-      mkHomeConfig =
-        username:
-        inputs.home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ../home.nix ];
-          extraSpecialArgs = {
-            inherit system username inputs;
-          };
-        };
-
       mkDotfilesExport =
         username:
         let
-          hmConfig = mkHomeConfig username;
-          homeDir = hmConfig.config.home.homeDirectory; # e.g. /Users/ii69854
+          # Re-use the homeConfigurations already evaluated by flake.nix rather
+          # than instantiating a second independent home-manager evaluation.
+          hmConfig = self'.legacyPackages.homeConfigurations.${username};
+          homeDir = hmConfig.config.home.homeDirectory;
 
-          # home.file entries have `executable` typed as nullable bool.
-          # Normalise it to a plain bool here so all downstream code can
-          # treat it as one without needing null-guard comparisons.
+          # home.file entries type `executable` as nullable bool; coerce to bool
+          # so downstream code can use it directly without null-guard comparisons.
           hmFiles = lib.mapAttrs (
-            _: v: v // { inherit (v) executable; }
+            _: v: v // { executable = v.executable != null && v.executable; }
           ) hmConfig.config.home.file;
 
-          # home.file keys can be either relative ("config/foo") or absolute
-          # ("/Users/ii69854/.config/foo").  Normalise to a relative path, or
-          # return null for paths that live outside $HOME entirely.
+          # home.file keys can be relative (".config/foo") or absolute
+          # ("/Users/ii69854/.config/foo"). Normalise to relative, or return
+          # null for paths outside $HOME entirely (e.g. /Library/Fonts).
           normalizePath =
             k:
             let
               stripped = lib.removePrefix homeDir k;
             in
             if stripped != k then
-              # Was an absolute path inside HOME — strip the leading "/"
               lib.removePrefix "/" stripped
             else if lib.hasPrefix "/" k then
-              # Absolute path NOT under HOME (e.g. /Library/Fonts) — skip
               null
             else
-              # Already a relative path
               k;
 
-          # Relative path prefixes that are nix-specific or non-portable.
-          # These are excluded from the export even if they pass other filters.
-          # Note: .config/nvim is handled separately via nixvim-config's own export package.
           excludePrefixes = [
             ".config/nvim" # replaced below with nixvim-config's nvim-config-export output
             ".local/state" # empty placeholder .keep files
@@ -86,29 +71,15 @@
             "Library/" # macOS system directories (fonts, etc.) — not $HOME dotfiles
           ];
 
-          isExcluded = rel: builtins.any (p: lib.hasPrefix p rel) excludePrefixes;
+          isExcluded = rel: lib.any (p: lib.hasPrefix p rel) excludePrefixes;
 
-          # Build the final set of files to export:
-          #   key   = normalised relative path  (used as destination under $out)
-          #   value = home.file entry           (.source, .recursive, …)
-          exportFiles = lib.listToAttrs (
-            lib.concatMap (
-              k:
-              let
-                v = hmFiles.${k};
-                norm = normalizePath k;
-              in
-              if v.executable || norm == null || isExcluded norm then
-                [ ] # drop
-              else
-                [
-                  {
-                    name = norm;
-                    value = v;
-                  }
-                ]
-            ) (lib.attrNames hmFiles)
-          );
+          exportFiles = lib.concatMapAttrs (
+            k: v:
+            let
+              norm = normalizePath k;
+            in
+            if v.executable || norm == null || isExcluded norm then { } else { ${norm} = v; }
+          ) hmFiles;
         in
         pkgs.runCommand "dotfiles-${username}"
           {
@@ -121,16 +92,20 @@
           ''
             set -euo pipefail
 
-            # Rewrite three categories of nix store references:
-            #   1. Shebangs pointing into the store  →  #!/usr/bin/env PROG
-            #   2. `source /nix/store/…` lines       →  commented-out note
-            #   3. Bare store-path prefixes           →  stripped
             sanitize() {
               sed \
                 -e 's|#!/nix/store/[^/]*/bin/\([^ ]*\)|#!/usr/bin/env \1|g' \
                 -e 's|source /nix/store/[^ ]*|# [nix-export: removed nix-store source — install plugin manually]|g' \
                 -e 's|/nix/store/[^/]*/||g' \
                 "$1"
+            }
+
+            sanitize_dir() {
+              find "$1" -type f | while IFS= read -r f; do
+                tmp=$(mktemp)
+                sanitize "$f" > "$tmp"
+                mv "$tmp" "$f"
+              done
             }
 
             mkdir -p $out
@@ -146,32 +121,21 @@
                 elif [ -d "$src" ]; then
                   cp -rT "$src" "$dest"
                   chmod -R u+w "$dest"
-                  find "$dest" -type f | while IFS= read -r f; do
-                    tmp=$(mktemp)
-                    sanitize "$f" > "$tmp"
-                    mv "$tmp" "$f"
-                  done
+                  sanitize_dir "$dest"
                 fi
               '') exportFiles
             )}
 
             # ── neovim config (pre-stripped by nixvim-config's own export) ───
-            # nixvim-config exposes packages.<system>.nvim-config-export, which
-            # is already sanitised for non-nix use (no tree-sitter store paths).
-            # We still run sanitize() over it to catch any stray shebangs left
-            # in plugin script files (test/docs helpers etc.).
+            # nixvim-config's nvim-config-export is already sanitised for non-nix
+            # use; sanitize_dir catches any stray shebangs in plugin script files.
             cp -rT "${inputs.nixvim-config.packages.${system}.nvim-config-export}" \
               "$out/.config/nvim"
             chmod -R u+w "$out/.config/nvim"
-            # Remove nix-support/ dirs — nix package metadata, useless outside nix
+            # nix-support/ dirs are nix package metadata — useless outside nix
             find "$out/.config/nvim" -type d -name 'nix-support' \
               | xargs -r rm -rf
-            # Sanitize any remaining shebangs / store-path refs in text files
-            find "$out/.config/nvim" -type f | while IFS= read -r f; do
-              tmp=$(mktemp)
-              sanitize "$f" > "$tmp"
-              mv "$tmp" "$f"
-            done
+            sanitize_dir "$out/.config/nvim"
 
             # ── raw shell scripts (unwrapped, portable) ────────────────────
             mkdir -p $out/.local/bin
@@ -253,7 +217,7 @@
       packages = rec {
         dotfiles-ii69854 = mkDotfilesExport "ii69854";
         dotfiles-skye = mkDotfilesExport "skye";
-        dotfiles = mkDotfilesExport "skye";
+        dotfiles = dotfiles-skye;
       };
     };
 }

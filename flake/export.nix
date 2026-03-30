@@ -81,6 +81,7 @@
             ".local/state" # empty placeholder .keep files
             ".cache" # empty placeholder .keep files
             "Library/" # macOS system directories (fonts, etc.) — not $HOME dotfiles
+            ".profile" # Only contains nix-specific settings.
           ];
 
           isExcluded = rel: lib.any (p: lib.hasPrefix p rel) excludePrefixes;

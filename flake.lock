@@ -192,11 +192,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1774642703,
-        "narHash": "sha256-cppRsLhtEnQpQL235pM33iLPgj4i0vd4wFR089O0Nc0=",
+        "lastModified": 1774882627,
+        "narHash": "sha256-iQuPAJL8qTQwQermKZyFrZnPjs/e8+6/SiQnb2Nzx/M=",
         "ref": "develop",
-        "rev": "d67d505dc63a872e805668d78a46cb6f60e7d196",
-        "revCount": 74,
+        "rev": "84696f18c99889fb5f63be4d742bcc6ec462501f",
+        "revCount": 75,
         "type": "git",
         "url": "ssh://git@github.com/skyethepinkcat/nixvim"
       },

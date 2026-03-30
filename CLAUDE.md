@@ -37,7 +37,7 @@ This is a [Home Manager](https://github.com/nix-community/home-manager) configur
 
 **Sub-modules** (each is a directory with `default.nix`):
 - `darwin/` — macOS-specific defaults gated behind `darwinConfig.enable` (auto-detected from `hostPlatform`).
-- `neovim/` — custom `neovim-config` option set; supports switching between NvChad (`use-nvchad`) and Nixvim (`use-nixvim`). Currently uses Nixvim, sourced from the private `nixvim-config` flake input.
+- `neovim/` — custom `neovim-config` option set; uses Nixvim, sourced from the `nixvim-config` flake input.
 - `zsh/` — Zsh configuration with fast-syntax-highlighting, history substring search, and inline zsh snippets from `nix_shortcuts.zsh` / `win_title_functions.zsh`.
 - `starship/` — Starship prompt config.
 - `vim/` — Vim configuration.
@@ -46,4 +46,4 @@ This is a [Home Manager](https://github.com/nix-community/home-manager) configur
 
 **Theme:** Catppuccin Mocha throughout (bat, eza, lazygit).
 
-**Private flake inputs** (`nixvim-config`, `nvchad-config`) are fetched over SSH — ensure SSH keys and agent are configured before running `nix flake update` on those inputs.
+**Private flake inputs:** none — `nixvim-config` is a public repo fetched over HTTPS.

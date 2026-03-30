@@ -13,7 +13,7 @@
 callPackage writeShellApplication {
   name = "${script}";
   runtimeInputs = depends;
-  bashOptions = bashOptions;
+  inherit bashOptions;
 
   text = builtins.readFile ./files/scripts/${script}.sh;
 }

@@ -3,27 +3,24 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # adding the starter input here
-    nvchad-config = {
-      url = "git+ssh://git@github.com/skyethepinkcat/nvim";
-      flake = false;
-    };
-
-    nix4nvchad = {
-      url = "github:nix-community/nix4nvchad";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nvchad-starter.follows = "nvchad-config"; # <- overwrite the module input here
-    };
-
     flake-parts.url = "github:hercules-ci/flake-parts";
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixvim-config = {
-      url = "git+ssh://git@github.com/skyethepinkcat/nixvim";
+      url = "git+ssh://git@github.com/skyethepinkcat/nixvim?ref=develop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -36,6 +33,11 @@
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        ./flake/export.nix
+        ./flake/treefmt.nix
+      ];
+
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -66,15 +68,15 @@
             };
         in
         {
-          # formatter.${system}
-          formatter = pkgs.nixfmt;
-
           # devShells.${system}.default
           devShells.default = pkgs.mkShell {
-            packages = [
-              pkgs.nil
-              pkgs.nixfmt
-              pkgs.shfmt
+            packages = with pkgs; [
+              nil
+              nixfmt
+              shfmt
+              age
+              sops
+              treefmt
             ];
           };
 

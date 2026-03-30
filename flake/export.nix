@@ -92,10 +92,15 @@
                 v = hmFiles.${k};
                 norm = normalizePath k;
               in
-              if v.executable == true || norm == null || isExcluded norm then
+              if v.executable || norm == null || isExcluded norm then
                 [ ] # drop
               else
-                [ { name = norm; value = v; } ]
+                [
+                  {
+                    name = norm;
+                    value = v;
+                  }
+                ]
             ) (lib.attrNames hmFiles)
           );
         in

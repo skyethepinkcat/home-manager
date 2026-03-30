@@ -17,4 +17,4 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v14
 
       - name: Check Nix formatting
-        run: nix fmt -- --check
+        run: nix fmt

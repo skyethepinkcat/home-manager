@@ -1,4 +1,9 @@
-{ pkgs, lib, inputs, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 {
   home.packages = with pkgs; [
     bash-language-server

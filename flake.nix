@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,6 +35,7 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         ./flake/export.nix
+        ./flake/treefmt.nix
       ];
 
       systems = [
@@ -63,17 +68,15 @@
             };
         in
         {
-          # formatter.${system}
-          formatter = pkgs.nixfmt;
-
           # devShells.${system}.default
           devShells.default = pkgs.mkShell {
-            packages = [
-              pkgs.nil
-              pkgs.nixfmt
-              pkgs.shfmt
-              pkgs.age
-              pkgs.sops
+            packages = with pkgs; [
+              nil
+              nixfmt
+              shfmt
+              age
+              sops
+              treefmt
             ];
           };
 

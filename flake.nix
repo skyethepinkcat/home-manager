@@ -70,7 +70,6 @@
           # devShells.${system}.default
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
-              nil
               nixfmt
               shfmt
               age

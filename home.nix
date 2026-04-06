@@ -241,4 +241,16 @@ rec {
     home-manager.enable = true;
   };
   nixpkgs.config.allowUnfree = true;
+  nix.registry = {
+    nixvim = {
+      from = {
+      id = "nixvim";
+      type = "indirect";
+      };
+      to = {
+        path = "${config.home.homeDirectory}/Configuration/nixvim";
+        type = "path";
+      };
+    };
+  };
 }

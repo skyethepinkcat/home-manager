@@ -66,6 +66,17 @@ rec {
         };
         file = "fast-syntax-highlighting.plugin.zsh";
       }
+      {
+        name = "git-flow-completion";
+        src = pkgs.fetchFromGitHub {
+
+          owner = "bobthecow";
+          repo = "git-flow-completion";
+          rev = "cba3ad7";
+          sha256 = "sha256-e6e3Y/kSqINILO8/BjZoCNnLB1PevZODIffYbw8mQvQ=";
+        };
+        file = "git-flow-completion.plugin.zsh";
+      }
     ];
 
     initContent =

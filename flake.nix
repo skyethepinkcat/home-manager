@@ -21,7 +21,6 @@
 
     nixvim-config = {
       url = "github:skyethepinkcat/nixvim/develop";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

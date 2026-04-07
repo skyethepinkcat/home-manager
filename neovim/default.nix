@@ -18,10 +18,6 @@ in
       nixvim = {
         enable = true;
         extraPackages = cfg.packages;
-        profiles = {
-          full = true;
-          ai = true;
-        };
         ai.suggestion = false;
       };
 

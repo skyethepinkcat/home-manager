@@ -53,7 +53,6 @@ rec {
     enable = true;
     packages = with pkgs; [
       nil
-      nodePackages.bash-language-server
       nixfmt
       mmv
       rubocop

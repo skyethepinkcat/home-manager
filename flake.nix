@@ -20,7 +20,7 @@
     };
 
     nixvim-config = {
-      url = "github:skyethepinkcat/nixvim/develop";
+      url = "github:skyethepinkcat/nixvim/feature/no_snacks";
     };
   };
 

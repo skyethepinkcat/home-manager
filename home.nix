@@ -168,22 +168,27 @@ rec {
     lazygit = {
       enable = true;
       settings = {
-        theme = {
-          activeBorderColor = [
-            "#89b4fa"
-            "bold"
-          ];
-          inactiveBorderColor = [ "#a6adc8" ];
-          optionsTextColor = [ "#89b4fa" ];
-          selectedLineBgColor = [ "#313244" ];
-          cherryPickedCommitBgColor = [ "#45475a" ];
-          cherryPickedCommitFgColor = [ "#89b4fa" ];
-          unstagedChangesColor = [ "#f38ba8" ];
-          defaultFgColor = [ "#cdd6f4" ];
-          searchingActiveBorderColor = [ "#f9e2af" ];
-        };
-        authorColors = {
-          "*" = "#b4befe";
+        gui = {
+          theme = {
+            activeBorderColor = [
+              "#89b4fa"
+              "bold"
+            ];
+            inactiveBorderColor = [ "#a6adc8" ];
+            searchingActiveBorderColor = [ "#f9e2af" ];
+            optionsTextColor = [ "#89b4fa" ];
+            selectedLineBgColor = [ "#313244" ];
+            inactiveViewSelectedLineBgColor = [ "#6c7086" ];
+            cherryPickedCommitFgColor = [ "#89b4fa" ];
+            cherryPickedCommitBgColor = [ "#45475a" ];
+            markedBaseCommitFgColor = [ "#89b4fa" ];
+            markedBaseCommitBgColor = [ "#f9e2af" ];
+            unstagedChangesColor = [ "#f38ba8" ];
+            defaultFgColor = [ "#cdd6f4" ];
+          };
+          authorColors = {
+            "*" = "#b4befe";
+          };
         };
       };
     };
@@ -239,12 +244,18 @@ rec {
 
     home-manager.enable = true;
   };
+  programs.nh = {
+    enable = true;
+    homeFlake = "~/Configuration/home-manager";
+    darwinFlake = "~/Configuration/nix";
+    osFlake = "~/Configuration/nix";
+  };
   nixpkgs.config.allowUnfree = true;
   nix.registry = {
     nixvim = {
       from = {
-      id = "nixvim";
-      type = "indirect";
+        id = "nixvim";
+        type = "indirect";
       };
       to = {
         path = "${config.home.homeDirectory}/Configuration/nixvim";

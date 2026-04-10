@@ -33,6 +33,7 @@ rec {
     ./vim
     ./starship
     ./darwin
+    ./ai
     ./neovim
   ];
 

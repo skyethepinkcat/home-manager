@@ -112,6 +112,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-edge": {
+      "locked": {
+        "lastModified": 1775747185,
+        "narHash": "sha256-KS/7hLTQ8Ja6GioSJra2T3ug/eyRrxEOv8P3Dwga3OU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "fb5f54e05e035f4778d66e8572a4bae7116d7264",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "master",
+        "type": "indirect"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1772328832,
@@ -216,16 +231,17 @@
       "inputs": {
         "flake-parts": "flake-parts_2",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-edge": "nixpkgs-edge",
         "nixvim": "nixvim",
         "skyepkgs": "skyepkgs",
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1775746710,
-        "narHash": "sha256-s/wi8wkI3zJVH06x3axRQIKFIImYJuYCP5vAcljIHvU=",
+        "lastModified": 1775748778,
+        "narHash": "sha256-FrXHrXJEeuqShMf1NQjcasWu78WBJzfMHpOwmPz2xlU=",
         "owner": "skyethepinkcat",
         "repo": "nixvim",
-        "rev": "c70301c55b2305ef6f5a0e8ab4ac80a52da51341",
+        "rev": "7c2950934d0f8dcd9f8a4563ff5d95be7915fdda",
         "type": "github"
       },
       "original": {

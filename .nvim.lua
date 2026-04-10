@@ -12,10 +12,10 @@ vim.lsp.config("nixd", {
 					expr = "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.ii69854.options",
 				},
 				flakeparts = {
-					expr = "(builtins.getFlake ./.).debug.options"
+					expr = "(builtins.getFlake ./.).debug.options",
 				},
 				flakeparts2 = {
-					expr = "(builtins.getFlake ./.).debug.currentSystem.options"
+					expr = "(builtins.getFlake ./.).debug.currentSystem.options",
 				},
 			},
 		},

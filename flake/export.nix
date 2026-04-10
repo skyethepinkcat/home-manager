@@ -42,8 +42,10 @@
         username:
         inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules =
-            [ ../home.nix ../variants/export.nix ];
+          modules = [
+            ../home.nix
+            ../variants/export.nix
+          ];
           extraSpecialArgs = {
             inherit system username inputs;
           };

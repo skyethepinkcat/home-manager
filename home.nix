@@ -3,6 +3,7 @@
   username,
   inputs,
   config,
+  lib,
   ...
 }:
 let
@@ -132,12 +133,12 @@ rec {
       enable = true;
       enableDefaultConfig = false;
       matchBlocks = {
-        "alborz.cs.umbc.edu vision*.cs.umbc.edu secrets.cs.umbc.edu" = {
+        "alborz.cs.umbc.edu vision*.cs.umbc.edu secrets.cs.umbc.edu" = lib.hm.dag.entryBefore "*.umbc.edu" {
           user = "skye";
           identityFile = "~/.ssh/umbc_id_rsa";
           identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
         };
-        "ebserv2.cs.umbc.edu" = {
+        "ebserv2.cs.umbc.edu" = lib.hm.dag.entryBefore "*.umbc.edu" {
           user = "skyejonke";
           identityFile = "~/.ssh/umbc_id_rsa";
           identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";

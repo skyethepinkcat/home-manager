@@ -51,17 +51,6 @@ rec {
     #    configHome = homedir + ".config";
   };
 
-  neovim-config = {
-    enable = true;
-    packages = with pkgs; [
-      nil
-      nixfmt
-      mmv
-      rubocop
-      solargraph
-    ];
-  };
-
   # Look up home manager options here
   # https://home-manager-options.extranix.com
   home = {
@@ -133,12 +122,14 @@ rec {
       enable = true;
       enableDefaultConfig = false;
       matchBlocks = {
-        "alborz.cs.umbc.edu vision*.cs.umbc.edu secrets.cs.umbc.edu" = lib.hm.dag.entryBefore "*.umbc.edu" {
-          user = "skye";
-          identityFile = "~/.ssh/umbc_id_rsa";
-          identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
-        };
-        "ebserv2.cs.umbc.edu" = lib.hm.dag.entryBefore "*.umbc.edu" {
+        "alborz.cs.umbc.edu vision*.cs.umbc.edu secrets.cs.umbc.edu" =
+          lib.hm.dag.entryBefore [ "*.umbc.edu" ]
+            {
+              user = "skye";
+              identityFile = "~/.ssh/umbc_id_rsa";
+              identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
+            };
+        "ebserv2.cs.umbc.edu" = lib.hm.dag.entryBefore [ "*.umbc.edu" ] {
           user = "skyejonke";
           identityFile = "~/.ssh/umbc_id_rsa";
           identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";

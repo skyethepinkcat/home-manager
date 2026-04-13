@@ -17,7 +17,6 @@ in
     programs = {
       nixvim = {
         enable = true;
-        extraPackages = cfg.packages;
         ai.suggestion = false;
       };
 

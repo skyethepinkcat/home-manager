@@ -228,6 +228,9 @@ rec {
       ];
       settings = {
         push.autoSetupRemote = true;
+        init.defaultBranch = "main";
+        core.repositoryFormatVersion = 1;
+        extensions.refStorage = "reftable";
         user = {
           name = "Skye J";
           email = "skye@skyenet.online";

@@ -16,7 +16,6 @@ in
           ShowStatusBar = true;
           AppleShowAllExtensions = true;
         };
-        "com.apple.Safari".IncludeDevelopMenu = true;
         "com.apple.menuextra.clock" = {
           Show24Hour = true;
           IsAnalog = false;

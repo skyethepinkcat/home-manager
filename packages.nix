@@ -26,5 +26,4 @@
     nil
     claude-agent-acp
   ];
-
 }

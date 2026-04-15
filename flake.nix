@@ -20,13 +20,12 @@
     };
 
     nixvim-config = {
-      url = "github:skyethepinkcat/nixvim/feature/no_snacks";
+      url = "github:skyethepinkcat/nixvim/develop";
     };
   };
 
   outputs =
     inputs@{
-      nixpkgs,
       flake-parts,
       home-manager,
       ...

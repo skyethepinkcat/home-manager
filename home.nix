@@ -225,6 +225,8 @@ rec {
         ".vscode"
         ".gitlint"
         ".gitignore.local"
+        ".direnv"
+        ".claude/configuration.local.json"
       ];
       settings = {
         push.autoSetupRemote = true;

@@ -23,9 +23,16 @@
         "feature-dev@claude-plugins-official" = true;
         "commit-commands@claude-plugins-official" = true;
         "claude-code-setup@claude-plugins-official" = true;
+        "caveman@caveman" = true;
       };
-
+      extraKnownMarketplaces = {
+        "caveman" = {
+          "source" = {
+            "source" = "github";
+            "repo" = "JuliusBrussee/caveman";
+          };
+        };
+      };
     };
   };
-
 }

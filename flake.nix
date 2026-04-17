@@ -73,6 +73,13 @@
               age
               sops
               treefmt
+              (ruby.withPackages (
+                ps: with ps; [
+                  rubocop
+                  rainbow
+                  minitest
+                ]
+              ))
             ];
           };
 

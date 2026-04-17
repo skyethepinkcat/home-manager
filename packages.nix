@@ -25,5 +25,6 @@
     wireshark
     nil
     claude-agent-acp
+    watch
   ];
 }

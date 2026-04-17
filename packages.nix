@@ -5,9 +5,6 @@
   ...
 }:
 {
-  nixpkgs.config.permittedInsecurePackages = [
-    "openclaw-2026.4.2"
-  ];
   home.packages = with pkgs; [
     bash-language-server
     # bat-extras.batman
@@ -28,7 +25,5 @@
     wireshark
     nil
     claude-agent-acp
-    openclaw
-    ollama
   ];
 }

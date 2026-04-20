@@ -80,7 +80,7 @@ sections['session_rl'] = warn_colors("[#{session_rl_label}]",
                                      bad: ->(x) { x > 75 },
                                      warn: ->(x) { x >= 50 },
                                      good: ->(x) { x > 25 })
-sections['context_window'] = warn_colors("[#{context_pct}% context]",
+sections['context_window'] = warn_colors("[#{context_pct.round}% context]",
                                          context_pct,
                                          bad: ->(x) { x > 75 },
                                          warn: ->(x) { x > 50 },

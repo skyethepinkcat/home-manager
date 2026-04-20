@@ -21,7 +21,6 @@
     openssl
     ripgrep
     rsync
-    rustup
     wireshark
     nil
     claude-agent-acp

@@ -48,7 +48,6 @@ rec {
 
   xdg = {
     enable = true;
-    #    configHome = homedir + ".config";
   };
 
   # Look up home manager options here

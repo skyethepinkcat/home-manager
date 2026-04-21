@@ -4,7 +4,7 @@ inputs,
   ...
 }:
 let
-  claude-prompt = inputs.claude-prompt.packages."${pkgs.system}".default;
+  claude-prompt = inputs.claude-prompt.packages."${pkgs.stdenv.hostPlatform.system}".default;
 in
 {
   programs.claude-code = {

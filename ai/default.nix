@@ -1,9 +1,10 @@
 {
   pkgs,
+inputs,
   ...
 }:
 let
-  claude-statusline = pkgs.callPackage ./statusline/package.nix { };
+  claude-prompt = inputs.claude-prompt.packages."${pkgs.system}".default;
 in
 {
   programs.claude-code = {
@@ -11,7 +12,7 @@ in
     settings = {
       statusLine = {
         type = "command";
-        command = "${pkgs.lib.getExe claude-statusline}";
+        command = "${pkgs.lib.getExe claude-prompt}";
       };
       permissions = {
         allow = [

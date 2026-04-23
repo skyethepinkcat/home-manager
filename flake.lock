@@ -9,11 +9,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1776798925,
-        "narHash": "sha256-nCAl8YRLcWgOXuku3XNrlvdjiyyOtErguaU4q3qsqM8=",
+        "lastModified": 1776801740,
+        "narHash": "sha256-mX6SQjdY41J+cgRK/XkPFLCk92KbQnqII88yCxij6G8=",
         "owner": "skyethepinkcat",
         "repo": "claude-prompt",
-        "rev": "01abde7fec181c245e0f21c41810debfa2b0d500",
+        "rev": "d5640b70b44d25c85742b1e09c4e307ed54244b4",
         "type": "github"
       },
       "original": {

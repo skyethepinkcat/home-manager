@@ -12,6 +12,12 @@ let
     rev = "eebee30512751c898ff35ae43a4db6fe67e83330";
     hash = "sha256-Gf+YdT3dW5NnwOHbDD2O5y0JVsbYhD1MEHVwjd/Tq7g=";
   };
+  rtk-src = pkgs.fetchFromGitHub {
+    owner = "rtk-ai";
+    repo = "rtk";
+    rev = "46fa31c4b8a60f8f9b1e767b87dba6f54dd9e901";
+    hash = "sha256-OxbtAA/NYien4+D0GelEzrnec6XyTF1e/6qOWl6Bw4k=";
+  };
 in
 {
   sops.secrets.litellm_gateway = { };
@@ -29,7 +35,6 @@ in
       enable = true;
       tui.theme = "catppuccin";
       extraPackages = with pkgs; [
-        snip
         rtk
       ];
 
@@ -46,7 +51,7 @@ in
         autoupdate = false;
         plugin = [
           "opencode-caveman"
-          "opencode-snip"
+          "${rtk-src}/hooks/opencode"
         ];
         provider = {
           litellm = {

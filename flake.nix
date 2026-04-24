@@ -27,6 +27,10 @@
       url = "github:skyethepinkcat/claude-prompt";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    skyepkgs = {
+      url = "github:skyethepinkcat/skyepkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -60,6 +64,8 @@
               inherit pkgs;
               modules = [
                 ./home.nix
+                inputs.sops-nix.homeManagerModules.sops
+                inputs.skyepkgs.homeManagerModules.opencode-monitor
               ];
               extraSpecialArgs = {
                 inherit system username inputs;

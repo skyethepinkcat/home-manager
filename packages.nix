@@ -7,7 +7,6 @@
 {
   home.packages = with pkgs; [
     bash-language-server
-    # bat-extras.batman
     bat-extras.core
     coreutils
     gnupg
@@ -25,5 +24,6 @@
     nil
     claude-agent-acp
     watch
+    rtk
   ];
 }

@@ -1,7 +1,7 @@
 {
   pkgs,
   inputs,
-config,
+  config,
   ...
 }:
 let
@@ -11,12 +11,6 @@ let
     repo = "opencode";
     rev = "eebee30512751c898ff35ae43a4db6fe67e83330";
     hash = "sha256-Gf+YdT3dW5NnwOHbDD2O5y0JVsbYhD1MEHVwjd/Tq7g=";
-  };
-  rtk-src = pkgs.fetchFromGitHub {
-    owner = "rtk-ai";
-    repo = "rtk";
-    rev = "46fa31c4b8a60f8f9b1e767b87dba6f54dd9e901";
-    hash = "sha256-OxbtAA/NYien4+D0GelEzrnec6XyTF1e/6qOWl6Bw4k=";
   };
 in
 {
@@ -51,7 +45,7 @@ in
         autoupdate = false;
         plugin = [
           "opencode-caveman"
-          "${rtk-src}/hooks/opencode"
+          # Adding rtk declaratively really doesn't want to work, make sure to use rtk init
         ];
         provider = {
           litellm = {
@@ -63,6 +57,12 @@ in
             models = {
               "Claude Sonnet 4.6" = {
                 name = "Claude Sonnet 4.6";
+                thinking = true;
+                temperature = true;
+                attachment = true;
+                tool_calling = true;
+                reasoning = true;
+
                 cost = {
                   input = 3.00;
                   output = 15.00;
@@ -113,19 +113,6 @@ in
           ];
 
         };
-        hooks = {
-          PreToolUse = [
-            {
-              "hooks" = [
-                {
-                  "command" = "/Users/ii69854/.claude/hooks/snip-rewrite.sh";
-                  "type" = "command";
-                }
-              ];
-              "matcher" = "Bash";
-            }
-          ];
-        };
         enabledPlugins = {
           "github@claude-plugins-official" = true;
           "feature-dev@claude-plugins-official" = true;
@@ -134,7 +121,7 @@ in
           "caveman@caveman" = true;
         };
         extraPackages = with pkgs; [
-          snip
+          rtk
         ];
         extraKnownMarketplaces = {
           "caveman" = {

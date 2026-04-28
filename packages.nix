@@ -25,5 +25,6 @@
     claude-agent-acp
     watch
     rtk
+    fontforge-gtk
   ];
 }

@@ -76,6 +76,7 @@
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               nixfmt
+              just
               shfmt
               age
               sops

@@ -113,6 +113,9 @@ rec {
   };
 
   programs = {
+    qalculate = {
+      enable = true;
+    };
     ssh = {
       enable = true;
       enableDefaultConfig = false;

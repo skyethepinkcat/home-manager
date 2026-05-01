@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -24,6 +25,10 @@ in
         NSGlobalDomain.AppleShowAllExtensions = null;
       };
     };
+    home.packages = with pkgs; [
+      claude
+      claude-usage-tracker
+    ];
   };
   options = {
     darwinConfig.enable = lib.mkEnableOption "Enable Module";

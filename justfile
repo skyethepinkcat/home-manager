@@ -5,3 +5,5 @@ switch:
 
 build:
 	home-manager build --flake .
+trace:
+	home-manager build --flake . --show-trace --no-out-link

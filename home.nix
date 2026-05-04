@@ -43,6 +43,7 @@ rec {
   sops = {
     defaultSopsFile = ./secrets/secrets.yaml;
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+    secrets.github_api_token = {};
   };
 
   xdg = {
@@ -71,6 +72,9 @@ rec {
       CARGO_MOMMYS_MOODS = "chill/thirsty/yikes";
     };
 
+    sessionVariablesExtra = ''
+      export GITHUB_TOKEN="$(cat ${config.sops.secrets.github_api_token.path} 2>/dev/null || true)"
+    '';
     # Place "real" packages in ./packages.nix
     packages = [
       (shell-script {
@@ -248,6 +252,7 @@ rec {
     darwinFlake = "~/Configuration/nix";
     osFlake = "~/Configuration/nix";
   };
+
   nixpkgs.config.allowUnfree = true;
   nix.registry = {
     nixvim = {

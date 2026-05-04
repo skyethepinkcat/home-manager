@@ -21,6 +21,10 @@
 
     nixvim-config = {
       url = "github:skyethepinkcat/nixvim/develop";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        skyepkgs.follows = "skyepkgs";
+      };
     };
 
     claude-prompt = {

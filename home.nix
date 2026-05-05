@@ -113,6 +113,8 @@ rec {
       neovim = "nvim";
       ckan = "ckan consoleui";
       flake = "nix flake";
+      pinflake = "nix flake lock --override-input nixpkgs github:NixOS/nixpkgs/$(nix registry list | awk '/^system flake:nixpkgs/ {print $3}' | grep -oP 'rev=\K[a-f0-9]+')";
+
     };
   };
 

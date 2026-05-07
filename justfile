@@ -1,5 +1,5 @@
 switch:
-	nix flake update nixvim-config skyepkgs
+	nix flake update nixvim-config skyepkgs claude-prompt
 	home-manager switch --flake . -b backup &&\
 	home-manager expire-generations "-30 days"
 

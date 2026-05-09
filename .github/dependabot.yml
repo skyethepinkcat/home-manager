@@ -1,3 +1,4 @@
+---
 version: 2
 
 updates:
@@ -7,7 +8,10 @@ updates:
       interval: "weekly"
     assignees:
       - "skyethepinkcat"
-
+    groups:
+      gh-actions-updates:
+        patterns:
+          - "*"
 
   - package-ecosystem: "nix"
     directory: "/"
@@ -16,3 +20,7 @@ updates:
       interval: "weekly"
     assignees:
       - "skyethepinkcat"
+    groups:
+      flake-updates:
+        patterns:
+          - "*"

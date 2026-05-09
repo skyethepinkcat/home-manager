@@ -17,14 +17,13 @@ jobs:
     steps:
       # ── checkout ────────────────────────────────────────────────────────
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # ── Nix ─────────────────────────────────────────────────────────────
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v14
+      - uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
 
-      - name: Set up Nix cache (Determinate)
-        uses: DeterminateSystems/flakehub-cache-action@v1
 
       # ── build ────────────────────────────────────────────────────────────
       - name: Build dotfiles export (ii69854)
@@ -41,7 +40,7 @@ jobs:
 
       # ── release ──────────────────────────────────────────────────────────
       - name: Create GitHub release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           name: "Dotfiles ${{ github.ref_name }}"
           body: |

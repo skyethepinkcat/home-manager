@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    llm-agents.url = "github:numtide/llm-agents.nix";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,35 +22,46 @@
 
     nixvim-config = {
       url = "github:skyethepinkcat/nixvim/develop";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        skyepkgs.follows = "skyepkgs";
+      };
+    };
+
+    claude-prompt = {
+      url = "github:skyethepinkcat/claude-prompt";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    skyepkgs = {
+      url = "github:skyethepinkcat/skyepkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
+  nixConfig = {
+    extra-substituters = [ "https://cache.numtide.com" ];
+    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=" ];
+  };
+
   outputs =
     inputs@{
-      nixpkgs,
       flake-parts,
       home-manager,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./flake/export.nix
-        ./flake/treefmt.nix
+        ./flake
       ];
 
       systems = [
         "x86_64-linux"
         "aarch64-linux"
         "aarch64-darwin"
-        "x86_64-darwin"
       ];
 
       perSystem =
         {
-          config,
-          self',
-          inputs',
           pkgs,
           system,
           ...
@@ -61,6 +73,8 @@
               inherit pkgs;
               modules = [
                 ./home.nix
+                inputs.sops-nix.homeManagerModules.sops
+                inputs.skyepkgs.homeManagerModules.opencode-monitor
               ];
               extraSpecialArgs = {
                 inherit system username inputs;
@@ -71,12 +85,19 @@
           # devShells.${system}.default
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
-              nil
               nixfmt
+              just
               shfmt
               age
               sops
               treefmt
+              (ruby.withPackages (
+                ps: with ps; [
+                  rubocop
+                  rainbow
+                  minitest
+                ]
+              ))
             ];
           };
 

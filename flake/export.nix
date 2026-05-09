@@ -42,8 +42,10 @@
         username:
         inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules =
-            [ ../home.nix ../variants/export.nix ];
+          modules = [
+            ../home.nix
+            ../variants/export.nix
+          ];
           extraSpecialArgs = {
             inherit system username inputs;
           };
@@ -81,6 +83,7 @@
             ".local/state" # empty placeholder .keep files
             ".cache" # empty placeholder .keep files
             "Library/" # macOS system directories (fonts, etc.) — not $HOME dotfiles
+            ".profile" # Only contains nix-specific settings.
           ];
 
           isExcluded = rel: lib.any (p: lib.hasPrefix p rel) excludePrefixes;

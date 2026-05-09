@@ -7,7 +7,7 @@
 {
   home.packages = with pkgs; [
     bash-language-server
-    claude-code
+    bat-extras.core
     coreutils
     gnupg
     findutils
@@ -20,9 +20,11 @@
     openssl
     ripgrep
     rsync
-    rustup
     wireshark
     nil
     claude-agent-acp
+    watch
+    rtk
+    fontforge-gtk
   ];
 }

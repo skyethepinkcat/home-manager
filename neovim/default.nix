@@ -1,23 +1,18 @@
 {
-  lib,
-  config,
   inputs,
-  pkgs,
   ...
 }:
-let
-  cfg = config.neovim-config;
-in
 {
   imports = [
     inputs.nixvim-config.homeModules.default
-    ./options.nix
   ];
-  config = lib.mkIf cfg.enable {
+  config = {
     programs = {
       nixvim = {
         enable = true;
-        extraPackages = cfg.packages;
+        profiles.ai = true;
+        ai.default = "claude";
+        ai.suggestions = false;
       };
 
       neovide = {

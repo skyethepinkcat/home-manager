@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -16,7 +17,6 @@ in
           ShowStatusBar = true;
           AppleShowAllExtensions = true;
         };
-        "com.apple.Safari".IncludeDevelopMenu = true;
         "com.apple.menuextra.clock" = {
           Show24Hour = true;
           IsAnalog = false;
@@ -25,6 +25,10 @@ in
         NSGlobalDomain.AppleShowAllExtensions = null;
       };
     };
+    home.packages = with pkgs; [
+      claude
+      claude-usage-tracker
+    ];
   };
   options = {
     darwinConfig.enable = lib.mkEnableOption "Enable Module";

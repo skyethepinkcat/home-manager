@@ -8,23 +8,24 @@
   home.packages = with pkgs; [
     bash-language-server
     bat-extras.core
+    claude-agent-acp
     coreutils
-    gnupg
-    findutils
-    ffmpeg
     fd
+    ffmpeg
+    findutils
+    fontforge-gtk
+    gh-dash
+    gitflow
+    gnupg
     gnused
     gnutar
     mpv
-    gitflow
+    nil
     openssl
     ripgrep
     rsync
-    wireshark
-    nil
-    claude-agent-acp
-    watch
     rtk
-    fontforge-gtk
+    watch
+    wireshark
   ];
 }

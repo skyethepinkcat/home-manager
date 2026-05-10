@@ -68,11 +68,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778424775,
-        "narHash": "sha256-r97mYNkX2t4+tXuwFPj0lCiES5xDxQ8WO41hioHwz8Q=",
+        "lastModified": 1778426911,
+        "narHash": "sha256-CikZSWGpiw1P6rVSrfhqWlMjfYXE8W4lOlXLtS0syYg=",
         "owner": "skyethepinkcat",
         "repo": "claude-prompt",
-        "rev": "0a95015fde08ac9a3bb2c52c801e5ce333bf8335",
+        "rev": "5ac412c1cec5faff62d396bab0810b6b70cd7d34",
         "type": "github"
       },
       "original": {

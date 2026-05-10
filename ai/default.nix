@@ -123,6 +123,7 @@ in
         };
         extraPackages = with pkgs; [
           rtk
+          nodejs
         ];
         extraKnownMarketplaces = {
           "caveman" = {

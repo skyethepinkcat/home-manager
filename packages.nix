@@ -27,5 +27,7 @@
     rtk
     watch
     wireshark
+    sops
+    age-plugin-yubikey
   ];
 }

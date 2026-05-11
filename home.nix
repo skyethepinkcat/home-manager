@@ -95,6 +95,9 @@ rec {
       (shell-script {
         script = "nr";
       })
+      (shell-script {
+        script = "askrm";
+      })
     ];
     #
     # This value determines the Home Manager release that your

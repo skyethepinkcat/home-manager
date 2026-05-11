@@ -3,6 +3,8 @@
   ...
 }:
 let
+  isDarwin = pkgs.stdenv.hostPlatform.system == "aarch64-darwin";
+  vimpkg = if isDarwin then pkgs.vim-darwin else pkgs.vim-full;
   catppuccin-vim = pkgs.vimUtils.buildVimPlugin {
     name = "catppuccin-vim";
     src = pkgs.fetchFromGitHub {
@@ -17,6 +19,7 @@ in
   programs.vim = {
     enable = true;
     defaultEditor = true;
+    packageConfigurable = vimpkg;
     settings = {
       relativenumber = true;
       ignorecase = true;

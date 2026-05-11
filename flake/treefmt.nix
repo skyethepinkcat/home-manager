@@ -21,6 +21,10 @@
             enable = true;
             package = pkgs.stylua;
           };
+          shfmt = {
+            enable = true;
+            package = pkgs.shfmt;
+          };
         };
       };
     };

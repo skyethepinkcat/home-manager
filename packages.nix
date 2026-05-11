@@ -6,6 +6,7 @@
 }:
 {
   home.packages = with pkgs; [
+    age-plugin-yubikey
     bash-language-server
     bat-extras.core
     claude-agent-acp
@@ -25,9 +26,9 @@
     ripgrep
     rsync
     rtk
+    sops
+    trash-cli
     watch
     wireshark
-    sops
-    age-plugin-yubikey
   ];
 }

@@ -117,7 +117,7 @@ rec {
       ckan = "ckan consoleui";
       flake = "nix flake";
       pinflake = "nix flake lock --override-input nixpkgs github:nixos/nixpkgs/$(nix registry list | awk '/^system flake:nixpkgs/ {print $3}' | grep -oP 'rev=\\K[a-f0-9]+')";
-
+      rm = "askrm";
     };
   };
 

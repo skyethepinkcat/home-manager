@@ -68,11 +68,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778426911,
-        "narHash": "sha256-CikZSWGpiw1P6rVSrfhqWlMjfYXE8W4lOlXLtS0syYg=",
+        "lastModified": 1778520566,
+        "narHash": "sha256-AreZHyrk9MLtvKz83PkPVK9dkE+RmVBtKW1Z0WEAHtw=",
         "owner": "skyethepinkcat",
         "repo": "claude-prompt",
-        "rev": "5ac412c1cec5faff62d396bab0810b6b70cd7d34",
+        "rev": "ca1b6511f44e463f4b23698e3bf18d23549fa8a4",
         "type": "github"
       },
       "original": {
@@ -455,11 +455,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1778517944,
-        "narHash": "sha256-PwsRR2HzsNGpbQ38w8FVxqdtzAlBNFf0fjlauT+Chrw=",
+        "lastModified": 1778525568,
+        "narHash": "sha256-io+0Ln3iH8oVYvN3ExUKr9IZlkAnd54kKCrU73VP1FI=",
         "owner": "skyethepinkcat",
         "repo": "nixvim",
-        "rev": "eacc699d5ebf8130b4107361c8d69f31df79a84d",
+        "rev": "676222c8cb0cc46eb5413962e7999777761e2f8e",
         "type": "github"
       },
       "original": {
@@ -479,7 +479,7 @@
         "nixvim-config": "nixvim-config",
         "skyepkgs": "skyepkgs",
         "sops-nix": "sops-nix",
-        "treefmt-nix": "treefmt-nix_3"
+        "treefmt-nix": "treefmt-nix_4"
       }
     },
     "rust-analyzer-src": {
@@ -504,14 +504,15 @@
         "flake-parts": "flake-parts_6",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1778078556,
-        "narHash": "sha256-Z6/w9GmnZdnRCEkF6O9b6O9Q8EGFhlCDY+VGFdnVdgc=",
+        "lastModified": 1778527104,
+        "narHash": "sha256-FczUr73QNaqiPm74K4Wa+AzUYaUYUV4Epu5VJD0PVhE=",
         "owner": "skyethepinkcat",
         "repo": "skyepkgs",
-        "rev": "e93f4182dbf7b538a3bd8ae28e466ff0f63d78cc",
+        "rev": "0705ba65bcda258a92a1a2fc2eb3be7f23c41f34",
         "type": "github"
       },
       "original": {
@@ -610,6 +611,27 @@
       }
     },
     "treefmt-nix_3": {
+      "inputs": {
+        "nixpkgs": [
+          "skyepkgs",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775636079,
+        "narHash": "sha256-pc20NRoMdiar8oPQceQT47UUZMBTiMdUuWrYu2obUP0=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "790751ff7fd3801feeaf96d7dc416a8d581265ba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "treefmt-nix_4": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"

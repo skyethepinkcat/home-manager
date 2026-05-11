@@ -110,13 +110,18 @@ rec {
     # changes in each release.
     stateVersion = "26.05";
 
-    shellAliases = {
+    shellAliases =
+      let
+        grep = lib.getExe pkgs.gnugrep;
+        awk = lib.getExe pkgs.gawk;
+      in
+        {
       peek = "it2cat";
       ll = "ls -l";
       neovim = "nvim";
       ckan = "ckan consoleui";
       flake = "nix flake";
-      pinflake = "nix flake lock --override-input nixpkgs github:nixos/nixpkgs/$(nix registry list | awk '/^system flake:nixpkgs/ {print $3}' | grep -oP 'rev=\\K[a-f0-9]+')";
+      pinflake = "nix flake lock --override-input nixpkgs github:nixos/nixpkgs/$(nix registry list | ${awk} '/^system flake:nixpkgs/ {print $3}' | ${grep} -oP 'rev=\\K[a-f0-9]+')";
       rm = "askrm";
       man = "batman";
     };

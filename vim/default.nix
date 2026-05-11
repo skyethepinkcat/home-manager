@@ -24,7 +24,6 @@ in
       history = 1000;
       shiftwidth = 2;
       tabstop = 2;
-      softtabstop = 2;
       expandtab = true;
     };
     plugins = with pkgs.vimPlugins; [

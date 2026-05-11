@@ -43,7 +43,7 @@ rec {
   sops = {
     defaultSopsFile = ./secrets/secrets.yaml;
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
-    secrets.github_api_token = {};
+    secrets.github_api_token = { };
   };
 
   xdg = {

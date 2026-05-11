@@ -97,6 +97,7 @@ rec {
       })
       (shell-script {
         script = "askrm";
+        depends = with pkgs; [trash-cli];
       })
     ];
     #

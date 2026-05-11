@@ -254,9 +254,9 @@ rec {
   };
   programs.nh = {
     enable = true;
-    homeFlake = "~/Configuration/home-manager";
-    darwinFlake = "~/Configuration/nix";
-    osFlake = "~/Configuration/nix";
+    homeFlake = "${home.homeDirectory}/Configuration/home-manager";
+    darwinFlake = "${home.homeDirectory}/Configuration/nix";
+    osFlake = "${home.homeDirectory}/Configuration/nix";
   };
 
   nixpkgs.config.allowUnfree = true;

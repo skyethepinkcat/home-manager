@@ -22,8 +22,9 @@ in
       ignorecase = true;
       smartcase = true;
       history = 1000;
-      shiftwidth = 4;
-      tabstop = 4;
+      shiftwidth = 2;
+      tabstop = 2;
+      softtabstop = 2;
       expandtab = true;
     };
     plugins = with pkgs.vimPlugins; [
@@ -31,6 +32,7 @@ in
       vim-commentary
       vim-nix
       vim-puppet
+      vim-surround
       catppuccin-vim
     ];
     extraConfig = ''
@@ -43,10 +45,7 @@ in
       set nobackup
       set incsearch
       set showcmd
-      " Don't wait for the x display on macos - severely hurts startup time
-      if $DISPLAY =~ '.*xquartz.*'
-       set clipboard=autoselect,exclude:.*
-      endif
+      set clipboard=unnamed
     '';
   };
 }

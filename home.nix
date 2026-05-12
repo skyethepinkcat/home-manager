@@ -8,7 +8,7 @@
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) system;
-  is_darwin = if builtins.match ".*-(darwin|linux)" system == [ "darwin" ] then true else false;
+  isDarwin = builtins.match ".*-(darwin|linux)" system == [ "darwin" ] ;
   shell-script =
     {
       script,
@@ -38,8 +38,6 @@ rec {
     ./neovim
   ];
 
-  darwinConfig.enable = is_darwin;
-
   sops = {
     defaultSopsFile = ./secrets/secrets.yaml;
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
@@ -54,7 +52,7 @@ rec {
   # https://home-manager-options.extranix.com
   home = {
     inherit username;
-    homeDirectory = if is_darwin then "/Users/${home.username}" else "/home/${home.username}";
+    homeDirectory = if isDarwin then "/Users/${home.username}" else "/home/${home.username}";
 
     sessionPath = [
       "${home.homeDirectory}/.local/bin"

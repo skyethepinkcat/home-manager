@@ -31,6 +31,24 @@ in
       extraPackages = with pkgs; [
         rtk
       ];
+      agents = {
+        intern = ''
+          ---
+          description: Simple coding tasks — edits, small features, boilerplate
+          mode: subagent
+          model: litellm/QWEN3-Next-Coder 80B
+          temperature: 0.2
+          ---
+
+          You handle simple, well-defined coding tasks: small edits, boilerplate, renaming, formatting fixes, obvious bug patches.
+
+          Rules:
+          - Ask for clarification before starting if the task is ambiguous
+          - Do not refactor beyond what was asked
+          - Do not add error handling, abstractions, or features beyond the request
+          - If the task turns out to be complex, say so instead of attempting it
+        '';
+      };
 
       themes = "${catppuccin-opencode}/themes";
       context = ''
@@ -64,36 +82,66 @@ in
                 reasoning = true;
 
                 cost = {
-                  input = 3.00;
-                  output = 15.00;
+                  input = 3.30;
+                  output = 16.50;
                 };
               };
               "gemini-3-flash-preview" = {
                 name = "gemini-3-flash-preview";
+                cost = {
+                  input = 0.50;
+                  output = 3.00;
+                };
               };
               "GPT-5.4-nano" = {
                 name = "GPT-5.4-nano";
-              };
-              "gpt-oss:120b" = {
-                name = "gpt-oss:120b";
+                cost = {
+                  input = 0.20;
+                  output = 1.25;
+                };
               };
               "Claude Haiku 4.5" = {
                 name = "Claude Haiku 4.5";
-              };
-              "llama4:16x17b" = {
-                name = "llama4:16x17b";
+                cost = {
+                  input = 1.10;
+                  output = 5.50;
+                };
               };
               "QWEN3-Next-Coder 80B" = {
                 name = "QWEN3-Next-Coder 80B";
+                cost = {
+                  input = 0.09;
+                  output = 0.25;
+                };
               };
               "Llama4 Maverick" = {
                 name = "Llama4 Maverick";
+                cost = {
+                  input = 0.24;
+                  output = 0.97;
+                };
               };
               "GPT-5.4-mini" = {
                 name = "GPT-5.4-mini";
+                cost = {
+                  input = 0.75;
+                  output = 4.50;
+                };
               };
             };
           };
+        };
+        agent = {
+          # Lightweight read-only subagents — no need for Sonnet
+          explore = { model = "litellm/QWEN3-Next-Coder 80B"; };
+          scout = { model = "litellm/QWEN3-Next-Coder 80B"; };
+          # Planning/analysis — Haiku sufficient, better reasoning than nano
+          plan = { model = "litellm/Claude Haiku 4.5"; };
+          general = { model = "litellm/Claude Haiku 4.5"; };
+          # Hidden system agents — mechanical tasks, cheapest viable model
+          title = { model = "litellm/GPT-5.4-nano"; };
+          summary = { model = "litellm/GPT-5.4-mini"; };
+          compaction = { model = "litellm/GPT-5.4-mini"; };
         };
       };
     };

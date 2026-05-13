@@ -8,7 +8,7 @@
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) system;
-  isDarwin = builtins.match ".*-(darwin|linux)" system == [ "darwin" ] ;
+  isDarwin = builtins.match ".*-(darwin|linux)" system == [ "darwin" ];
   shell-script =
     {
       script,
@@ -96,6 +96,20 @@ rec {
       (shell-script {
         script = "askrm";
       })
+      (shell-script {
+        script = "smartcat";
+        depends = with pkgs; [
+          eza
+          coreutils
+        ];
+      })
+      (shell-script {
+        script = "smartbat";
+        depends = with pkgs; [
+          eza
+          bat
+        ];
+      })
     ];
     #
     # This value determines the Home Manager release that your
@@ -113,16 +127,18 @@ rec {
         grep = lib.getExe pkgs.gnugrep;
         awk = lib.getExe pkgs.gawk;
       in
-        {
-      peek = "it2cat";
-      ll = "ls -l";
-      neovim = "nvim";
-      ckan = "ckan consoleui";
-      flake = "nix flake";
-      pinflake = "nix flake lock --override-input nixpkgs github:nixos/nixpkgs/$(nix registry list | ${awk} '/^system flake:nixpkgs/ {print $3}' | ${grep} -oP 'rev=\\K[a-f0-9]+')";
-      rm = "askrm";
-      man = "batman";
-    };
+      {
+        cat = "smartcat";
+        bat = "smartbat";
+        peek = "it2cat";
+        ll = "ls -l";
+        neovim = "nvim";
+        ckan = "ckan consoleui";
+        flake = "nix flake";
+        pinflake = "nix flake lock --override-input nixpkgs github:nixos/nixpkgs/$(nix registry list | ${awk} '/^system flake:nixpkgs/ {print $3}' | ${grep} -oP 'rev=\\K[a-f0-9]+')";
+        rm = "askrm";
+        man = "batman";
+      };
   };
 
   programs = {

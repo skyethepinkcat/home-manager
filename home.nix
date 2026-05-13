@@ -42,6 +42,7 @@ rec {
     defaultSopsFile = ./secrets/secrets.yaml;
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
     secrets.github_api_token = { };
+    secrets.litellm_api_token = { };
   };
 
   xdg = {
@@ -72,6 +73,7 @@ rec {
 
     sessionVariablesExtra = ''
       export GITHUB_TOKEN="$(cat ${config.sops.secrets.github_api_token.path} 2>/dev/null || true)"
+      export LITELLM_TOKEN="$(cat ${config.sops.secrets.litellm_api_token.path} 2>/dev/null || true)"
     '';
     # Place "real" packages in ./packages.nix
     packages = [

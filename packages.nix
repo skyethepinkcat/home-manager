@@ -22,6 +22,7 @@
     gnutar
     mpv
     nil
+    nvd
     openssl
     ripgrep
     rsync

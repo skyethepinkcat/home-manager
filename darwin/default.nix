@@ -1,11 +1,13 @@
 {
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) system;
   isDarwin = builtins.match ".*-(darwin|linux)" system == [ "darwin" ] ;
+  pkgs-edge = import inputs.nixpkgs {inherit system;};
   in
 {
   config = lib.mkIf isDarwin {
@@ -27,7 +29,7 @@ let
     };
     home.packages = with pkgs; [
       claude
-      claude-usage-tracker
+      pkgs-edge.claude-usage-tracker
     ];
   };
 }

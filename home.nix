@@ -150,7 +150,7 @@ rec {
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks = {
+      settings = {
         "alborz.cs.umbc.edu vision*.cs.umbc.edu secrets.cs.umbc.edu" =
           lib.hm.dag.entryBefore [ "*.umbc.edu" ]
             {
@@ -171,10 +171,8 @@ rec {
           addKeysToAgent = "yes";
           sendEnv = [ "CSEE_USER" ];
           checkHostIP = false;
-          extraOptions = {
-            "hostkeyAlgorithms" = "+ssh-rsa";
-            "pubkeyAcceptedKeyTypes" = "+ssh-rsa";
-          };
+          hostkeyAlgorithms = "+ssh-rsa";
+          pubkeyAcceptedKeyTypes = "+ssh-rsa";
         };
         "honnoji asticassia lydian mayfaire skyenet.online" = {
           user = "skye";

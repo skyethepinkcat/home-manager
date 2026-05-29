@@ -5,6 +5,7 @@
   ...
 }:
 let
+  pkgs-edge = import inputs.nixpkgs {inherit (pkgs.stdenv.hostPlatform) system;};
   claude-prompt = inputs.claude-prompt.packages."${pkgs.stdenv.hostPlatform.system}".default;
   catppuccin-opencode = pkgs.fetchFromGitHub {
     owner = "catppuccin";

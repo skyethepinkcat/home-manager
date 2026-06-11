@@ -15,7 +15,7 @@ updates:
 
   - package-ecosystem: "nix"
     directory: "/"
-    target-branch: develop
+    target-branch: main
     schedule:
       interval: "weekly"
     assignees:

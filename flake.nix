@@ -2,7 +2,7 @@
   description = "Home Manager Configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-edge.url = "github:NixOS/nixpkgs";
     llm-agents.url = "github:numtide/llm-agents.nix";
     treefmt-nix = {
@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -22,7 +22,7 @@
     };
 
     nixvim-config = {
-      url = "github:skyethepinkcat/nixvim";
+      url = "github:skyethepinkcat/nixvim/release-26.05";
       inputs = {
         skyepkgs.follows = "skyepkgs";
       };

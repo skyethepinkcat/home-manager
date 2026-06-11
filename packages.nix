@@ -6,25 +6,29 @@
 }:
 {
   home.packages = with pkgs; [
+    age-plugin-yubikey
     bash-language-server
     bat-extras.core
+    claude-agent-acp
     coreutils
-    gnupg
-    findutils
-    ffmpeg
     fd
+    ffmpeg
+    findutils
+    fontforge-gtk
+    gh-dash
+    gnupg
     gnused
     gnutar
     mpv
-    gitflow
+    nil
+    nvd
     openssl
     ripgrep
     rsync
-    wireshark
-    nil
-    claude-agent-acp
-    watch
     rtk
-    fontforge-gtk
+    sops
+    trash-cli
+    watch
+    wireshark
   ];
 }

@@ -1,14 +1,16 @@
 {
   lib,
-  config,
   pkgs,
+  inputs,
   ...
 }:
 let
-  cfg = config.darwinConfig;
-in
+  inherit (pkgs.stdenv.hostPlatform) system;
+  isDarwin = builtins.match ".*-(darwin|linux)" system == [ "darwin" ] ;
+  pkgs-edge = import inputs.nixpkgs {inherit system;};
+  in
 {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf isDarwin {
     targets.darwin = {
       search = "DuckDuckGo";
       defaults = {
@@ -27,10 +29,7 @@ in
     };
     home.packages = with pkgs; [
       claude
-      claude-usage-tracker
+      pkgs-edge.claude-usage-tracker
     ];
-  };
-  options = {
-    darwinConfig.enable = lib.mkEnableOption "Enable Module";
   };
 }

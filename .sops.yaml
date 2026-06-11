@@ -1,5 +1,6 @@
 ---
 keys:
+  - &yubikey age1yubikey1qwt5qgl06a9uslu4ya9jkjgg9hjenc7ac2jchg9wvhg7k3lklrmhclz7fmt
   - &yubiwa age1s7099uxssvte8gm8f96t4jkfnr8ea9a0cuv3fjcxec5uwgd5hvtqmzytpz
   - &honnoji age1fhp6wpshg7u8xz07qf76l5252nv3npwrn9evhrgxuqd37xjwcg8q4pvzzj
   - &lydian age13p326e4s63ndd7dz5rsxh0qc4ujch0wt0w0kn87u348dpve7fyzqxfgwzt
@@ -8,6 +9,7 @@ creation_rules:
   - path_regex: secrets/.*\.yaml$
     key_groups:
       - age:
+          - *yubikey
           - *yubiwa
           - *honnoji
           - *lydian

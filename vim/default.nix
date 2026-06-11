@@ -3,6 +3,8 @@
   ...
 }:
 let
+  isDarwin = pkgs.stdenv.hostPlatform.system == "aarch64-darwin";
+  vimpkg = if isDarwin then pkgs.vim-darwin else pkgs.vim-full;
   catppuccin-vim = pkgs.vimUtils.buildVimPlugin {
     name = "catppuccin-vim";
     src = pkgs.fetchFromGitHub {
@@ -17,13 +19,14 @@ in
   programs.vim = {
     enable = true;
     defaultEditor = true;
+    packageConfigurable = vimpkg;
     settings = {
       relativenumber = true;
       ignorecase = true;
       smartcase = true;
       history = 1000;
-      shiftwidth = 4;
-      tabstop = 4;
+      shiftwidth = 2;
+      tabstop = 2;
       expandtab = true;
     };
     plugins = with pkgs.vimPlugins; [
@@ -31,6 +34,7 @@ in
       vim-commentary
       vim-nix
       vim-puppet
+      vim-surround
       catppuccin-vim
     ];
     extraConfig = ''
@@ -43,10 +47,7 @@ in
       set nobackup
       set incsearch
       set showcmd
-      " Don't wait for the x display on macos - severely hurts startup time
-      if $DISPLAY =~ '.*xquartz.*'
-       set clipboard=autoselect,exclude:.*
-      endif
+      set clipboard=unnamed
     '';
   };
 }

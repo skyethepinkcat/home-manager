@@ -8,7 +8,7 @@
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) system;
-  is_darwin = if builtins.match ".*-(darwin|linux)" system == [ "darwin" ] then true else false;
+  isDarwin = builtins.match ".*-(darwin|linux)" system == [ "darwin" ];
   shell-script =
     {
       script,
@@ -38,12 +38,11 @@ rec {
     ./neovim
   ];
 
-  darwinConfig.enable = is_darwin;
-
   sops = {
     defaultSopsFile = ./secrets/secrets.yaml;
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
-    secrets.github_api_token = {};
+    secrets.github_api_token = { };
+    secrets.litellm_api_token = { };
   };
 
   xdg = {
@@ -54,7 +53,7 @@ rec {
   # https://home-manager-options.extranix.com
   home = {
     inherit username;
-    homeDirectory = if is_darwin then "/Users/${home.username}" else "/home/${home.username}";
+    homeDirectory = if isDarwin then "/Users/${home.username}" else "/home/${home.username}";
 
     sessionPath = [
       "${home.homeDirectory}/.local/bin"
@@ -74,6 +73,7 @@ rec {
 
     sessionVariablesExtra = ''
       export GITHUB_TOKEN="$(cat ${config.sops.secrets.github_api_token.path} 2>/dev/null || true)"
+      export LITELLM_TOKEN="$(cat ${config.sops.secrets.litellm_api_token.path} 2>/dev/null || true)"
     '';
     # Place "real" packages in ./packages.nix
     packages = [
@@ -95,6 +95,23 @@ rec {
       (shell-script {
         script = "nr";
       })
+      (shell-script {
+        script = "askrm";
+      })
+      (shell-script {
+        script = "smartcat";
+        depends = with pkgs; [
+          eza
+          coreutils
+        ];
+      })
+      (shell-script {
+        script = "smartbat";
+        depends = with pkgs; [
+          eza
+          bat
+        ];
+      })
     ];
     #
     # This value determines the Home Manager release that your
@@ -107,15 +124,23 @@ rec {
     # changes in each release.
     stateVersion = "26.05";
 
-    shellAliases = {
-      peek = "it2cat";
-      ll = "ls -l";
-      neovim = "nvim";
-      ckan = "ckan consoleui";
-      flake = "nix flake";
-      pinflake = "nix flake lock --override-input nixpkgs github:nixos/nixpkgs/$(nix registry list | awk '/^system flake:nixpkgs/ {print $3}' | grep -oP 'rev=\\K[a-f0-9]+')";
-
-    };
+    shellAliases =
+      let
+        grep = lib.getExe pkgs.gnugrep;
+        awk = lib.getExe pkgs.gawk;
+      in
+      {
+        cat = "smartcat";
+        bat = "smartbat";
+        peek = "it2cat";
+        ll = "ls -l";
+        neovim = "nvim";
+        ckan = "ckan consoleui";
+        flake = "nix flake";
+        pinflake = "nix flake lock --override-input nixpkgs github:nixos/nixpkgs/$(nix registry list | ${awk} '/^system flake:nixpkgs/ {print $3}' | ${grep} -oP 'rev=\\K[a-f0-9]+')";
+        rm = "askrm";
+        man = "batman";
+      };
   };
 
   programs = {
@@ -125,7 +150,7 @@ rec {
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks = {
+      settings = {
         "alborz.cs.umbc.edu vision*.cs.umbc.edu secrets.cs.umbc.edu" =
           lib.hm.dag.entryBefore [ "*.umbc.edu" ]
             {
@@ -146,10 +171,8 @@ rec {
           addKeysToAgent = "yes";
           sendEnv = [ "CSEE_USER" ];
           checkHostIP = false;
-          extraOptions = {
-            "hostkeyAlgorithms" = "+ssh-rsa";
-            "pubkeyAcceptedKeyTypes" = "+ssh-rsa";
-          };
+          hostkeyAlgorithms = "+ssh-rsa";
+          pubkeyAcceptedKeyTypes = "+ssh-rsa";
         };
         "honnoji asticassia lydian mayfaire skyenet.online" = {
           user = "skye";
@@ -250,9 +273,9 @@ rec {
   };
   programs.nh = {
     enable = true;
-    homeFlake = "~/Configuration/home-manager";
-    darwinFlake = "~/Configuration/nix";
-    osFlake = "~/Configuration/nix";
+    homeFlake = "${home.homeDirectory}/Configuration/home-manager";
+    darwinFlake = "${home.homeDirectory}/Configuration/nix";
+    osFlake = "${home.homeDirectory}/Configuration/nix";
   };
 
   nixpkgs.config.allowUnfree = true;

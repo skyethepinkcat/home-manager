@@ -24,3 +24,14 @@ updates:
       flake-updates:
         patterns:
           - "*"
+  - package-ecosystem: "nix"
+    directory: "/"
+    target-branch: release-26.05
+    schedule:
+      interval: "weekly"
+    assignees:
+      - "skyethepinkcat"
+    groups:
+      flake-updates:
+        patterns:
+          - "*"

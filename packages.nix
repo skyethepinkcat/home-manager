@@ -16,7 +16,6 @@
     findutils
     fontforge-gtk
     gh-dash
-    gitflow
     gnupg
     gnused
     gnutar

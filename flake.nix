@@ -22,7 +22,7 @@
     };
 
     nixvim-config = {
-      url = "github:skyethepinkcat/nixvim/develop";
+      url = "github:skyethepinkcat/nixvim/release-26.05";
       inputs = {
         skyepkgs.follows = "skyepkgs";
       };

@@ -7,8 +7,7 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) system;
-  isDarwin = builtins.match ".*-(darwin|linux)" system == [ "darwin" ];
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   shell-script =
     {
       script,

@@ -78,7 +78,12 @@ rec {
     packages = [
       (shell-script {
         script = "backup-downloads";
-        depends = with pkgs; [ fd trash-cli  gnutar];
+        depends = with pkgs; [
+          fd
+          trash-cli
+          gnutar
+          xz
+        ];
       })
       (shell-script {
         script = "forgethost";

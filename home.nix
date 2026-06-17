@@ -77,6 +77,10 @@ rec {
     # Place "real" packages in ./packages.nix
     packages = [
       (shell-script {
+        script = "backup-downloads";
+        depends = with pkgs; [ fd trash-cli  gnutar];
+      })
+      (shell-script {
         script = "forgethost";
         depends = with pkgs; [ gnused ];
       })

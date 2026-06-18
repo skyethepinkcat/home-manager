@@ -27,8 +27,7 @@
     rsync
     rtk
     sops
-    trash-cli
     watch
     wireshark
-  ];
+  ] ++ lib.optionals (! pkgs.stdenv.hostPlatform.isDarwin) [ trash-cli];
 }

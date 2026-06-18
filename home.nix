@@ -78,12 +78,13 @@ rec {
     packages = [
       (shell-script {
         script = "backup-downloads";
-        depends = with pkgs; [
-          fd
-          trash-cli
-          gnutar
-          xz
-        ];
+        depends =
+          (with pkgs; [
+            fd
+            gnutar
+            xz
+          ])
+          ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [ pkgs.trash-cli ];
       })
       (shell-script {
         script = "forgethost";

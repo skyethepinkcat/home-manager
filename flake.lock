@@ -475,8 +475,6 @@
         "flake-parts": "flake-parts_4",
         "japanese-input-nvim": "japanese-input-nvim",
         "nixpkgs": [
-          "nixvim-config",
-          "nixvim",
           "nixpkgs"
         ],
         "nixvim": "nixvim",

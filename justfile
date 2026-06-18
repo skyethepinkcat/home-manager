@@ -1,6 +1,12 @@
+default: update_trivial switch
+
 switch:
+	home-manager switch --flake . -b backup
+
+update_trivial:
 	nix flake update nixvim-config skyepkgs claude-prompt
-	home-manager switch --flake . -b backup &&\
+
+expire:
 	home-manager expire-generations "-30 days"
 
 build:

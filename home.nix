@@ -7,8 +7,7 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) system;
-  isDarwin = builtins.match ".*-(darwin|linux)" system == [ "darwin" ];
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
   shell-script =
     {
       script,
@@ -77,6 +76,16 @@ rec {
     '';
     # Place "real" packages in ./packages.nix
     packages = [
+      (shell-script {
+        script = "backup-downloads";
+        depends =
+          (with pkgs; [
+            fd
+            gnutar
+            xz
+          ])
+          ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [ pkgs.trash-cli ];
+      })
       (shell-script {
         script = "forgethost";
         depends = with pkgs; [ gnused ];

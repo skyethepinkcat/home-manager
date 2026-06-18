@@ -25,6 +25,7 @@
       url = "github:skyethepinkcat/nixvim/release-26.05";
       inputs = {
         skyepkgs.follows = "skyepkgs";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 

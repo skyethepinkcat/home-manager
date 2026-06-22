@@ -9,6 +9,7 @@ let
 in
 {
   config = lib.mkIf isDarwin {
+    services.podman.enable = true;
     targets.darwin = {
       search = "DuckDuckGo";
       defaults = {
@@ -26,8 +27,8 @@ in
       };
     };
     home.packages = with pkgs; [
-    claude
-    claude-usage-tracker
+      claude
+      claude-usage-tracker
     ];
   };
 }

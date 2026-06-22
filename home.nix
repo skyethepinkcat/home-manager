@@ -8,6 +8,17 @@
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
+
+  secret_env =
+    variables:
+    lib.strings.concatLines (
+      lib.lists.forEach variables (variable: ''
+        export ${variable}="$(cat ${
+          config.sops.secrets.${lib.strings.toLower variable}.path
+        } 2>/dev/null || true)"
+      '')
+    );
+
   shell-script =
     {
       script,
@@ -41,9 +52,10 @@ rec {
     defaultSopsFile = ./secrets/secrets.yaml;
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
     secrets = {
-      github_api_token = { };
-      litellm_api_token = { };
+      github_token = { };
+      litellm_token = { };
       nix_config = { };
+      cachix_auth_token = { };
     };
   };
 
@@ -73,11 +85,13 @@ rec {
       CARGO_MOMMYS_MOODS = "chill/thirsty/yikes";
     };
 
-    sessionVariablesExtra = ''
-      export GITHUB_TOKEN="$(cat ${config.sops.secrets.github_api_token.path} 2>/dev/null || true)"
-      export LITELLM_TOKEN="$(cat ${config.sops.secrets.litellm_api_token.path} 2>/dev/null || true)"
-      export NIX_CONFIG="$(cat ${config.sops.secrets.nix_config.path} 2>/dev/null || true)"
-    '';
+    sessionVariablesExtra = secret_env [
+      "GITHUB_TOKEN"
+      "LITELLM_TOKEN"
+      "NIX_CONFIG"
+      "CACHIX_AUTH_TOKEN"
+    ];
+
     # Place "real" packages in ./packages.nix
     packages = [
       (shell-script {

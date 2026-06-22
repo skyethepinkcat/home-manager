@@ -11,7 +11,6 @@
     bat-extras.core
     claude-agent-acp
     coreutils
-    devenv
     fd
     ffmpeg
     findutils

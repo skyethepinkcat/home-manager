@@ -9,7 +9,15 @@ let
 in
 {
   config = lib.mkIf isDarwin {
-    services.podman.enable = true;
+    services.podman = {
+      enable = true;
+      machines = {
+        "podman-machine-default" = {
+          volumes = [ "/Users:/Users" "/private:/private" "/var/folders:/var/folders" ];
+          autoStart = true;
+      };
+      };
+    };
     targets.darwin = {
       search = "DuckDuckGo";
       defaults = {

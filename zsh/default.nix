@@ -54,18 +54,9 @@ rec {
       ];
     };
     defaultKeymap = "emacs";
+    fastSyntaxHighlighting.enable = true;
 
     plugins = [
-      {
-        name = "fast-syntax-highlighting";
-        src = pkgs.fetchFromGitHub {
-          owner = "zdharma-continuum";
-          repo = "fast-syntax-highlighting";
-          rev = "3922b91";
-          sha256 = "sha256-RYLPOguM6YS7RK2AU6QdDCtdwezzOpJYixIEIAU/UPY=";
-        };
-        file = "fast-syntax-highlighting.plugin.zsh";
-      }
       {
         name = "git-flow-completion";
         src = pkgs.fetchFromGitHub {

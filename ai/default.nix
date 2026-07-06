@@ -5,7 +5,7 @@
   ...
 }:
 let
-  pkgs-edge = import inputs.nixpkgs {inherit (pkgs.stdenv.hostPlatform) system;};
+  pkgs-edge = import inputs.nixpkgs { inherit (pkgs.stdenv.hostPlatform) system; };
   claude-prompt = inputs.claude-prompt.packages."${pkgs.stdenv.hostPlatform.system}".default;
   catppuccin-opencode = pkgs.fetchFromGitHub {
     owner = "catppuccin";
@@ -15,6 +15,9 @@ let
   };
 in
 {
+  imports = [
+    inputs.skyepkgs.homeManagerModules.opencode-monitor
+  ];
   sops.secrets.litellm_gateway = { };
   programs = {
     opencode-monitor = {
@@ -135,15 +138,29 @@ in
         };
         agent = {
           # Lightweight read-only subagents — no need for Sonnet
-          explore = { model = "litellm/QWEN3-Next-Coder 80B"; };
-          scout = { model = "litellm/QWEN3-Next-Coder 80B"; };
+          explore = {
+            model = "litellm/QWEN3-Next-Coder 80B";
+          };
+          scout = {
+            model = "litellm/QWEN3-Next-Coder 80B";
+          };
           # Planning/analysis — Haiku sufficient, better reasoning than nano
-          plan = { model = "litellm/Claude Haiku 4.5"; };
-          general = { model = "litellm/Claude Haiku 4.5"; };
+          plan = {
+            model = "litellm/Claude Haiku 4.5";
+          };
+          general = {
+            model = "litellm/Claude Haiku 4.5";
+          };
           # Hidden system agents — mechanical tasks, cheapest viable model
-          title = { model = "litellm/GPT-5.4-nano"; };
-          summary = { model = "litellm/GPT-5.4-mini"; };
-          compaction = { model = "litellm/GPT-5.4-mini"; };
+          title = {
+            model = "litellm/GPT-5.4-nano";
+          };
+          summary = {
+            model = "litellm/GPT-5.4-mini";
+          };
+          compaction = {
+            model = "litellm/GPT-5.4-mini";
+          };
         };
       };
     };

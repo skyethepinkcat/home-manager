@@ -9,8 +9,7 @@ vim.lsp.config("nixd", {
 			},
 			options = {
 				homemanager = {
-					expr =
-					"(builtins.getFlake (builtins.toString ./.)).currentSystem.legacyPackages.homeConfigurations.skye.options",
+					expr = "(builtins.getFlake (builtins.toString ./.)).currentSystem.legacyPackages.homeConfigurations.skye.options",
 				},
 				flakeparts = {
 					expr = "(builtins.getFlake (builtins.toString ./.)).currentSystem.options",

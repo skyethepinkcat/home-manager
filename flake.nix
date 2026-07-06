@@ -40,8 +40,14 @@
   };
 
   nixConfig = {
-    extra-substituters = [ "https://cache.numtide.com" "https://skyethepinkcat.cachix.org"];
-    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="  "skyethepinkcat.cachix.org-1:N9c9/ovsKf24kIgQpGvU6+wjYyGNjPPESgM6gP7weKk="];
+    extra-substituters = [
+      "https://cache.numtide.com"
+      "https://skyethepinkcat.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+      "skyethepinkcat.cachix.org-1:N9c9/ovsKf24kIgQpGvU6+wjYyGNjPPESgM6gP7weKk="
+    ];
   };
 
   outputs =
@@ -77,7 +83,6 @@
               modules = [
                 ./home.nix
                 inputs.sops-nix.homeManagerModules.sops
-                inputs.skyepkgs.homeManagerModules.opencode-monitor
               ];
               extraSpecialArgs = {
                 inherit system username inputs;

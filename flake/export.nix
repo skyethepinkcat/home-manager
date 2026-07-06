@@ -144,7 +144,7 @@
             # ── neovim config (pre-stripped by nixvim-config's own export) ───
             # nixvim-config's nvim-config-export is already sanitised for non-nix
             # use; sanitize_dir catches any stray shebangs in plugin script files.
-            cp -rT "${inputs.nixvim-config.packages.${system}.nvim-config-export}" \
+            cp -rT "${inputs.nixvim-config.packages.${system}.nixvim-config-export}" \
               "$out/.config/nvim"
             chmod -R u+w "$out/.config/nvim"
             # nix-support/ dirs are nix package metadata — useless outside nix

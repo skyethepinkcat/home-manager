@@ -13,9 +13,13 @@ in
       enable = true;
       machines = {
         "podman-machine-default" = {
-          volumes = [ "/Users:/Users" "/private:/private" "/var/folders:/var/folders" ];
+          volumes = [
+            "/Users:/Users"
+            "/private:/private"
+            "/var/folders:/var/folders"
+          ];
           autoStart = true;
-      };
+        };
       };
     };
     targets.darwin = {

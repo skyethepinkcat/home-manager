@@ -1,4 +1,4 @@
-if [ $# -eq 1 ] && [ -t 1 ] && [ -e $1 ]; then
+if [ $# -eq 1 ] && [ -t 1 ] && [ -e "$1" ]; then
 
   if [ -d "$1" ]; then
     eza --icons auto "$@"

@@ -10,7 +10,6 @@
     programs = {
       nixvim = {
         enable = true;
-        profiles.ai = true;
         ai.default = "claude";
         ai.suggestions = false;
       };

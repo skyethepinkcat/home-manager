@@ -16,7 +16,6 @@
       fd
       ffmpeg
       findutils
-      fontforge-gtk
       gh-dash
       gnupg
       gnused

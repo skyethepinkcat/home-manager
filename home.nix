@@ -109,6 +109,14 @@ rec {
         depends = with pkgs; [ gnused ];
       })
       (shell-script {
+        script = "combine_pdfs";
+        depends = with pkgs; [
+          qpdf
+          findutils
+          gnugrep
+        ];
+      })
+      (shell-script {
         script = "sniff";
         depends = with pkgs; [
           openssh

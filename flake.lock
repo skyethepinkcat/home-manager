@@ -200,11 +200,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784913159,
-        "narHash": "sha256-JWq0BfjO4ktpH5USfQNQzdvHpIDT8fSKD5K7LvdMRFs=",
+        "lastModified": 1785306346,
+        "narHash": "sha256-DScBkW0fOgpGPK2trNoX3ryLTlaC14+gglFo/BhGJ4g=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "079a3b5d1aa6a719920a51316253b7d6dd22738d",
+        "rev": "e705714e918c3b11affcdd15db2cbe3a070420a0",
         "type": "github"
       },
       "original": {
@@ -247,11 +247,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1785008781,
-        "narHash": "sha256-8/sqtedCCZGZwQQYwvR2LcT+viE99rFOKrU0tcC/HLk=",
+        "lastModified": 1785354813,
+        "narHash": "sha256-7FP/nFDQokzcEG50sBrGjaOEfS3+9CFsNv2Ll9KVsmA=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "cef1a33548bebe53824e7216fe1766a6a79eed97",
+        "rev": "b2479bf8a3e1a7294bf4e558f519bef8d6a805af",
         "type": "github"
       },
       "original": {
@@ -285,11 +285,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1784555310,
-        "narHash": "sha256-/FCliTPgiuV1owejZFNx3Ch9irdvkOfOFl+HHZ+DrtM=",
+        "lastModified": 1785301185,
+        "narHash": "sha256-eoS3KQTO0aPWXZvIaRbRAzSSHW3l5wdMFXtT1ISfoKA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "421eebfd0ec7bccd4abe826ce62d7e6e83129493",
+        "rev": "9bc02893134c733dd85de46ee4fb2fac696b5529",
         "type": "github"
       },
       "original": {
@@ -301,11 +301,11 @@
     },
     "nixpkgs-edge": {
       "locked": {
-        "lastModified": 1785011798,
-        "narHash": "sha256-ejCQAK5iJAamgaoVwpLVG4Ev1VHIS2RZFusNeJLatUI=",
+        "lastModified": 1785359338,
+        "narHash": "sha256-J++ataTwR4ypCKXrw75cRCOY8xxw59HrFhoJPOn7Xhw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "76e8396b3543aa9e046ceae027e80735e7cb984e",
+        "rev": "58bb338785b5e5a6fba9c2bdef426a8883a8fe52",
         "type": "github"
       },
       "original": {
@@ -376,11 +376,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1784796856,
-        "narHash": "sha256-wWFrV5/Qbm+lyt5x20E/bSbfJiGKMo4RCxZV8cl/WZI=",
+        "lastModified": 1785318670,
+        "narHash": "sha256-dN6Ou5x/+23FZLEpYP3IffO+NyJFzUlGumt1uu3MMaY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e2587caef70cea85dd97d7daab492899902dbf5d",
+        "rev": "0954f7ee2f6bb3dc7d4e3d0d8bcb8fd4bde4cfc5",
         "type": "github"
       },
       "original": {
@@ -416,11 +416,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1784057377,
-        "narHash": "sha256-yycNej5//EsRbV10moBoh+/63vXEwZD1ZFEiRm6C9rQ=",
+        "lastModified": 1784814601,
+        "narHash": "sha256-T32JXjZ7kIbhBn8/Har171yGg6IBdl97cxAWameqZDE=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "07180a087e4a00720dc0731cbcd8dec796974381",
+        "rev": "f316e949e0ed9df0e1e0bf645c6dce721d4e230e",
         "type": "github"
       },
       "original": {
@@ -443,11 +443,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1784909674,
-        "narHash": "sha256-AxemT77MH0hS1CQS+Kf6IbTZT9QOWdBB9aN2YhqpsZw=",
+        "lastModified": 1785249635,
+        "narHash": "sha256-O2CDbk7niXp3Tdyt3+tMfQwt21FYuw5rdk31TfN3X0s=",
         "owner": "skyethepinkcat",
         "repo": "nixvim",
-        "rev": "4d34614d58cbe7fd1cdb209d6958dd90179d2fbe",
+        "rev": "561911c57276f93944d21bc053080a6c1d9ad19d",
         "type": "github"
       },
       "original": {
@@ -496,11 +496,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1784812971,
-        "narHash": "sha256-SYz5UdSaGUlwoI/r0pzPkN6rqrf/QRtvSN+ljUwTM5I=",
+        "lastModified": 1785268826,
+        "narHash": "sha256-576gzSopexOotslACmNW3ifesIeGXeXIS0MO3vBN9e4=",
         "owner": "skyethepinkcat",
         "repo": "skyepkgs",
-        "rev": "b9dad9852bebf7d0e02ebc81da0387ccbcf5ef5c",
+        "rev": "21bfc3be9b01d4cf77eeb7ce38975ecd566599d3",
         "type": "github"
       },
       "original": {

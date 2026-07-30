@@ -204,7 +204,6 @@ rec {
           identityFile = "~/.ssh/umbc_id_rsa";
           identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
           addKeysToAgent = "yes";
-          sendEnv = [ "CSEE_USER" ];
           checkHostIP = false;
           hostkeyAlgorithms = "+ssh-rsa";
           pubkeyAcceptedKeyTypes = "+ssh-rsa";
@@ -213,7 +212,10 @@ rec {
           user = "skye";
         };
         "*" = {
-          sendEnv = [ "COLORTERM" ];
+          sendEnv = [
+            "COLORTERM"
+            "CSEE_USER"
+          ];
           identityFile = "~/.ssh/id_ed25519";
           identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
           addKeysToAgent = "yes";

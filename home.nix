@@ -167,10 +167,11 @@ rec {
         awk = lib.getExe pkgs.gawk;
       in
       {
+        g = "${grep} -i";
         cat = "smartcat";
         bat = "smartbat";
         peek = "it2cat";
-        ll = "ls -l";
+        ll = "${lib.getExe pkgs.eza} -l";
         neovim = "nvim";
         ckan = "ckan consoleui";
         flake = "nix flake";

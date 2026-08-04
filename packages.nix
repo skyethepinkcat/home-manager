@@ -20,6 +20,7 @@
       gnupg
       gnused
       gnutar
+      gnugrep
       mpv
       nil
       nvd

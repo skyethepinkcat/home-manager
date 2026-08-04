@@ -56,6 +56,7 @@ rec {
       litellm_token = { };
       nix_config = { };
       cachix_auth_token = { };
+      satellite_access_token = { };
     };
   };
 
@@ -90,6 +91,7 @@ rec {
       "LITELLM_TOKEN"
       "NIX_CONFIG"
       "CACHIX_AUTH_TOKEN"
+      "SATELLITE_ACCESS_TOKEN"
     ];
 
     # Place "real" packages in ./packages.nix

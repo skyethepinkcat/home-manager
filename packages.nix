@@ -17,13 +17,14 @@
       ffmpeg
       findutils
       gh-dash
+      gnugrep
       gnupg
       gnused
       gnutar
-      gnugrep
       mpv
       nil
       nvd
+      obsidian
       openssl
       ripgrep
       rsync

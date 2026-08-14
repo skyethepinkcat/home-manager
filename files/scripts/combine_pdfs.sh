@@ -4,7 +4,8 @@
 DIR="${1:-.}"
 OUT="${2:-combined.pdf}"
 
-mapfile -d '' pdfs < <(find "$DIR" -type f -iname '*.pdf' -print0 | sort -z | grep -v 'US Bank' | grep -v 'peoplesoft')
+echo "$PATH"
+mapfile -d '' pdfs < <(find "$DIR" -type f -iname '*.pdf' -print0 | grep -zZv 'US Bank' | grep -zZv 'peoplesoft'| sort -z)
 
 if [ "${#pdfs[@]}" -eq 0 ]; then
   echo "No PDFs found in $DIR" >&2

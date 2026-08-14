@@ -24,12 +24,16 @@ let
       script,
       depends ? [ ],
       extraOptions ? { }, # Pass raw options to writeShellApplication
+      inheritPath ? false,
       ...
     }:
     pkgs.callPackage pkgs.writeShellApplication (
       {
         name = "${script}";
-        runtimeInputs = depends;
+        runtimeInputs = depends ++ [
+          pkgs.coreutils # The odds you don't want coreutils are basically zero
+        ];
+        inherit inheritPath;
 
         text = builtins.readFile ./files/scripts/${script}.sh;
       }
@@ -99,6 +103,7 @@ rec {
     packages = [
       (shell-script {
         script = "backup-downloads";
+        inheritPath = true;
         depends =
           (with pkgs; [
             fd
@@ -109,6 +114,7 @@ rec {
       })
       (shell-script {
         script = "forgethost";
+        inheritPath = true;
         depends = with pkgs; [ gnused ];
       })
       (shell-script {
@@ -128,9 +134,12 @@ rec {
       })
       (shell-script {
         script = "puppet-fmt";
+        inheritPath = true;
         extraOptions.bashOptions = [ "nounset" ];
+
       })
       (shell-script {
+        inheritPath = true;
         script = "nr";
       })
       (shell-script {
@@ -140,7 +149,6 @@ rec {
         script = "smartcat";
         depends = with pkgs; [
           eza
-          coreutils
         ];
       })
       (shell-script {

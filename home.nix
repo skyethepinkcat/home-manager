@@ -41,16 +41,16 @@ let
     );
 in
 rec {
-  imports = [
-    inputs.sops-nix.homeManagerModules.sops
-    ./packages.nix
-    ./zsh
-    ./vim
-    ./starship
-    ./darwin
-    ./ai
-    ./neovim
-  ];
+  imports =
+    with builtins;
+    with lib;
+    map (fn: ./${fn}) (
+      filter (
+        fn:
+        (fn != "home.nix" && fn != "flake.nix" && hasSuffix ".nix" "${fn}") || pathExists ./${fn}/default.nix && fn != "flake"
+      ) (attrNames (readDir ./.))
+    )
+    ++ [ inputs.skyepkgs.homeManagerModules.iterm2-shell-integration ];
 
   sops = {
     defaultSopsFile = ./secrets/secrets.yaml;
@@ -148,6 +148,7 @@ rec {
       (shell-script {
         script = "smartcat";
         depends = with pkgs; [
+          gnugrep
           eza
         ];
       })
@@ -191,6 +192,7 @@ rec {
   };
 
   programs = {
+    iterm2-shell-integration.enable = true;
     qalculate = {
       enable = true;
     };

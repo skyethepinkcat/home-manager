@@ -6,12 +6,12 @@ Guidance for Claude Code when working in this repo.
 
 ```bash
 # Apply configuration (default - also updates nixvim-config flake input first)
-make
+just
 # or
-make switch
+just switch
 
 # Build without activating
-make build
+just build
 
 # Format Nix files
 nix fmt

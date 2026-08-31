@@ -37,6 +37,10 @@
       url = "github:skyethepinkcat/skyepkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-hosts = {
+      url = "github:skyethepinkcat/nix-hosts";
+      flake = false;
+    };
   };
 
   nixConfig = {
@@ -59,6 +63,8 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         ./flake
+        inputs.home-manager.flakeModules.home-manager
+
       ];
 
       systems = [
@@ -75,20 +81,6 @@
           system,
           ...
         }:
-        let
-          mkHomeConfig =
-            username:
-            home-manager.lib.homeManagerConfiguration {
-              inherit pkgs;
-              modules = [
-                ./home.nix
-                inputs.sops-nix.homeManagerModules.sops
-              ];
-              extraSpecialArgs = {
-                inherit system username inputs;
-              };
-            };
-        in
         {
           # devShells.${system}.default
           devShells.default = pkgs.mkShell {
@@ -107,11 +99,6 @@
                 ]
               ))
             ];
-          };
-
-          legacyPackages.homeConfigurations = {
-            ii69854 = mkHomeConfig "ii69854";
-            skye = mkHomeConfig "skye";
           };
         };
     };

@@ -4,6 +4,7 @@
   inputs,
   config,
   lib,
+  host,
   ...
 }:
 let
@@ -47,7 +48,8 @@ rec {
     map (fn: ./${fn}) (
       filter (
         fn:
-        (fn != "home.nix" && fn != "flake.nix" && hasSuffix ".nix" "${fn}") || pathExists ./${fn}/default.nix && fn != "flake"
+        (fn != "home.nix" && fn != "flake.nix" && hasSuffix ".nix" "${fn}")
+        || pathExists ./${fn}/default.nix && fn != "flake"
       ) (attrNames (readDir ./.))
     )
     ++ [ inputs.skyepkgs.homeManagerModules.iterm2-shell-integration ];
@@ -224,6 +226,7 @@ rec {
         };
         "honnoji asticassia lydian mayfaire skyenet.online" = {
           user = "skye";
+          identityFile = "~/.ssh/id_ed25519";
         };
         "*" = {
           sendEnv = [
@@ -284,13 +287,17 @@ rec {
       nix-direnv.enable = true;
     };
 
-    kitty = {
+    kitty = lib.mkIf (host.hasTags [ "desktop" ]) {
       enable = true;
       shellIntegration.enableZshIntegration = true;
       font = {
         name = "Hack Nerd Font Mono";
         size = 14;
         package = pkgs.nerd-fonts.hack;
+      };
+      settings = lib.optionalAttrs host.isDarwin {
+        macos_option_as_alt = true;
+
       };
 
     };

@@ -2,12 +2,12 @@
   pkgs,
   lib,
   inputs,
+  host,
   ...
 }:
 {
   home.packages =
-    with pkgs;
-    [
+    (with pkgs; [
       age-plugin-yubikey
       bash-language-server
       bat-extras.core
@@ -24,14 +24,22 @@
       mpv
       nil
       nvd
-      obsidian
       openssl
       ripgrep
       rsync
       rtk
       sops
       watch
-      wireshark
-    ]
-    ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [ trash-cli ];
+    ])
+    ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) (with pkgs; [ trash-cli ])
+    ++ lib.optionals (host.hasTags [ "desktop" ]) (
+      with pkgs;
+      [
+        mpv
+        obsidian
+        wireshark
+        discord
+        element-desktop
+      ]
+    );
 }

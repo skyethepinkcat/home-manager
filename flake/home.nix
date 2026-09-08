@@ -9,6 +9,7 @@ let
 
   inherit (inputs) home-manager nixpkgs;
   hosts = import inputs.nix-hosts {
+    local_domain = "taila9d2a7.ts.net";
     inherit lib;
   };
 
@@ -30,6 +31,7 @@ in
       extraSpecialArgs = {
         username = host.primaryUser;
         inherit host inputs;
+        nix-hosts = hosts;
       };
     };
 

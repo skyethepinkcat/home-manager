@@ -5,6 +5,7 @@
   config,
   lib,
   host,
+  nix-hosts,
   ...
 }:
 let
@@ -201,43 +202,48 @@ rec {
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      settings = {
-        "alborz.cs.umbc.edu vision*.cs.umbc.edu secrets.cs.umbc.edu" =
-          lib.hm.dag.entryBefore [ "*.umbc.edu" ]
+      settings =
+        (lib.hm.dag.entriesBefore "UMBC Unique"
+          [ "*.umbc.edu" ]
+          [
             {
+              header = "Host alborz.cs.umbc.edu vision*.cs.umbc.edu secrets.cs.umbc.edu";
               user = "skye";
               identityFile = "~/.ssh/umbc_id_rsa";
-              identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
-            };
-        "ebserv2.cs.umbc.edu" = lib.hm.dag.entryBefore [ "*.umbc.edu" ] {
-          user = "skyejonke";
-          identityFile = "~/.ssh/umbc_id_rsa";
-          identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
-          addKeysToAgent = "yes";
+            }
+            {
+              header = "Host ebserv2.cs.umbc.edu";
+              user = "skyejonke";
+              identityFile = "~/.ssh/umbc_id_rsa";
+            }
+          ]
+        )
+        // {
+          "*.umbc.edu" = {
+            user = "ii69854";
+            identityFile = "~/.ssh/umbc_id_rsa";
+            checkHostIP = false;
+            hostkeyAlgorithms = "+ssh-rsa";
+            pubkeyAcceptedKeyTypes = "+ssh-rsa";
+          };
+        }
+        // (lib.hm.dag.entriesAfter "tailscaleHosts" [ "*.umbc.edu" ] (
+          map (value: {
+            header = "Host ${lib.join " " ([ value.name ] ++ value.fqdns)}";
+            user = value.primaryUser;
+          }) (builtins.attrValues nix-hosts.hosts)
+        ))
+        // {
+          "*" = lib.hm.dag.entryAfter [ "tailscaleHosts" "*.umbc.edu" ] {
+            sendEnv = [
+              "COLORTERM"
+              "CSEE_USER"
+            ];
+            identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
+            addKeysToAgent = "yes";
+            identityFile = "~/.ssh/id_ed25519";
+          };
         };
-        "*.umbc.edu" = {
-          user = "ii69854";
-          identityFile = "~/.ssh/umbc_id_rsa";
-          identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
-          addKeysToAgent = "yes";
-          checkHostIP = false;
-          hostkeyAlgorithms = "+ssh-rsa";
-          pubkeyAcceptedKeyTypes = "+ssh-rsa";
-        };
-        "honnoji asticassia lydian mayfaire skyenet.online" = {
-          user = "skye";
-          identityFile = "~/.ssh/id_ed25519";
-        };
-        "*" = {
-          sendEnv = [
-            "COLORTERM"
-            "CSEE_USER"
-          ];
-          identityFile = "~/.ssh/id_ed25519";
-          identityAgent = "~/Library/Group\\ Containers/group.strongbox.mac.mcguill/agent.sock";
-          addKeysToAgent = "yes";
-        };
-      };
     };
     lazygit = {
       enable = true;

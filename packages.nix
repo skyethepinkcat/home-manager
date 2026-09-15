@@ -40,7 +40,6 @@
         wireshark
         discord
         element-desktop
-        thunderbird
       ]
     );
 }

@@ -565,6 +565,29 @@
         "type": "github"
       }
     },
+    "nur": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789666902,
+        "narHash": "sha256-Z1O2PENEPFWGbNaaMjTG5DGJUm1WMEwjDAAnox+vCq0=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "51a7357a0b3fe55514fa67bb4c73dd1909950a18",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "nvim-nixmodules": {
       "inputs": {
         "flake-parts": "flake-parts_6",
@@ -598,6 +621,7 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-edge": "nixpkgs-edge",
         "nixvim-config": "nixvim-config",
+        "nur": "nur",
         "skyepkgs": "skyepkgs",
         "sops-nix": "sops-nix",
         "treefmt-nix": "treefmt-nix_4"

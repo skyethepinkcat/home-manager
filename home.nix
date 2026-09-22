@@ -64,6 +64,7 @@ rec {
       nix_config = { };
       cachix_auth_token = { };
       satellite_access_token = { };
+      attic_auth_token = {};
     };
   };
 
@@ -196,6 +197,16 @@ rec {
 
   programs = {
     iterm2-shell-integration.enable = true;
+    attic = {
+      enable = true;
+      settings = {
+        default-server = "skyenet";
+        servers.skyenet = {
+          endpoint = "https://nix-cache.skyenet.online";
+          token-file = config.sops.secrets.attic_auth_token.path;
+        };
+      };
+    };
     qalculate = {
       enable = true;
     };

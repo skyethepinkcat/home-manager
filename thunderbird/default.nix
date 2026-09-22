@@ -133,7 +133,7 @@ in
               folderName = "imap://ii69854%40umbc.edu@imap.gmail.com";
             in
             {
-              enable = true;
+              enable = host.hasTags "desktop";
               profiles = [ "nix" ];
               # directory = "UMBC LDAP";
               settings = defaultSettings;

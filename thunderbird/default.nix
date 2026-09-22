@@ -31,10 +31,15 @@ let
       self: first: second:
       toString (bitOr self."${first}" self.${second});
   };
+  defaultSettings = id: {
+    "mail.server.server_${id}.moveOnSpam" = true;
+    "mail.identity.id_${id}.reply_on_top" = 1;
+    "mail.identity.id_${id}.reply_sig" = true;
+  };
 in
 
 {
-  imports = [ ./options.nix ];
+  # imports = [ ./options.nix ];
   config = lib.mkIf (host.hasTags "desktop") {
     sops.secrets.icloud_mail_pw = { };
     # Sadly its not really possible to handle calendars because we would need to specify every
@@ -76,11 +81,13 @@ in
             {
               enable = true;
               profiles = [ "nix" ];
-              settings = id: {
-                "mail.identity.id_${id}.archive_folder" = "${folderName}/Archive";
-                "mail.server.server_${id}.spamActionTargetFolder" = "${folderName}/Junk";
-                "mail.server.server_${id}.moveOnSpam" = true;
-              };
+              settings =
+                id:
+                {
+                  "mail.identity.id_${id}.archive_folder" = "${folderName}/Archive";
+                  "mail.server.server_${id}.spamActionTargetFolder" = "${folderName}/Junk";
+                }
+                // defaultSettings id;
               messageFilters = [
                 {
                   name = "NixOS Discourse";
@@ -118,6 +125,8 @@ in
 
               410-455-2860
             '';
+            # htmlFormat = true;
+            showSignature = "append";
           };
           thunderbird =
             let
@@ -126,6 +135,8 @@ in
             {
               enable = true;
               profiles = [ "nix" ];
+              # directory = "UMBC LDAP";
+              settings = defaultSettings;
               messageFilters = [
                 {
                   name = "Move to Spam";
@@ -169,17 +180,28 @@ in
     programs.thunderbird = {
       enable = true;
       package = pkgs.thunderbird-esr;
-      directories = [
-        {
-          name = "UMBC LDAP";
-          hostname = "directory.umbc.edu";
-          baseDN = "ou=People,dc=umbc,dc=edu";
-          accounts = [ "UMBC Gmail" ];
-        }
-      ];
       profiles = {
         "v4pwe35w.default-release" = { };
         nix = {
+          # directories = {
+          #   "UMBC LDAP" = {
+          #     hostname = "directory.umbc.edu";
+          #     baseDN = "ou=People,dc=umbc,dc=edu";
+          #   };
+          # };
+          extraConfig =
+            # Manual config until https://github.com/nix-community/home-manager/pull/9965 gets
+            # merged.
+            ''
+              user_pref("ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.auth.dn", "");
+              user_pref("ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.description", "UMBC LDAP");
+              user_pref("ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.filename", "ldap.sqlite");
+              user_pref("ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.maxHits", 100);
+              user_pref("ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.saslmech.dn", "");
+              user_pref("ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.uri", "ldap://directory.umbc.edu:389/ou=People,dc=umbc,dc=edu??sub?");
+              user_pref("mail.identity.id_855d67c7583ccb92137542609e331cbaa76b6ae5253eaae2ef11095cbea3a65d.directoryServer", "ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738");
+
+            '';
           settings = {
             "extensions.autoDisableScopes" = 0;
 

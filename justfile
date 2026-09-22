@@ -13,7 +13,9 @@ build:
 	home-manager build --flake .
 trace:
 	home-manager build --flake . --show-trace --no-out-link
+
 diff: build
 	nix run nixpkgs#nvd diff ~/.local/state/nix/profiles/home-manager ./result
+
 cache user=`whoami` hostname=`hostname`:
 	attic push skyenet $(nix build ".#homeConfigurations.{{user}}@{{hostname}}.activationPackage" --print-out-paths --no-link)

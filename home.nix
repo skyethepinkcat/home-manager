@@ -197,7 +197,7 @@ rec {
 
   programs = {
     iterm2-shell-integration.enable = true;
-    attic = {
+    attic-client = {
       enable = true;
       settings = {
         default-server = "skyenet";

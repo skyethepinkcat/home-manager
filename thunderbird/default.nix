@@ -135,8 +135,8 @@ in
             {
               enable = host.hasTags "desktop";
               profiles = [ "nix" ];
-              # directory = "UMBC LDAP";
               settings = defaultSettings;
+              # directory = "UMBC LDAP";
               messageFilters = [
                 {
                   name = "Move to Spam";
@@ -193,14 +193,13 @@ in
             # Manual config until https://github.com/nix-community/home-manager/pull/9965 gets
             # merged.
             ''
-              user_pref("ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.auth.dn", "");
-              user_pref("ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.description", "UMBC LDAP");
-              user_pref("ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.filename", "ldap.sqlite");
-              user_pref("ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.maxHits", 100);
-              user_pref("ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.saslmech.dn", "");
-              user_pref("ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.uri", "ldap://directory.umbc.edu:389/ou=People,dc=umbc,dc=edu??sub?");
-              user_pref("mail.identity.id_855d67c7583ccb92137542609e331cbaa76b6ae5253eaae2ef11095cbea3a65d.directoryServer", "ldap_2.servers.2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738");
-
+              user_pref("ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.auth.dn", "");
+              user_pref("ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.description", "UMBC LDAP");
+              user_pref("ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.filename", "ldap.sqlite");
+              user_pref("ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.maxHits", 100);
+              user_pref("ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.saslmech.dn", "");
+              user_pref("ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.uri", "ldap://directory.umbc.edu:389/ou=People,dc=umbc,dc=edu??sub?");
+              user_pref("mail.identity.id_855d67c7583ccb92137542609e331cbaa76b6ae5253eaae2ef11095cbea3a65d.directoryServer", "ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738");
             '';
           settings = {
             "extensions.autoDisableScopes" = 0;
@@ -215,13 +214,7 @@ in
             "mail.pane_config.dynamic" = 1; # Wide message view, specific to work since I use a vertical monitor there.
           };
           extensions = [
-            (
-              inputs.nur.legacyPackages.${pkgs.stdenv.hostPlatform.system}.repos.rycee.thunderbird-addons.filtaquilla.override
-              {
-                url = "https://github.com/RealRaven2000/FiltaQuilla/releases/download/6.3/filtaquilla-6.3.xpi";
-                sha256 = "sha256-LISoSDilkT40N2854FhMIwjzr2b/x2LrdyT7j/bXk5k=";
-              }
-            )
+            inputs.nur.legacyPackages.${pkgs.stdenv.hostPlatform.system}.repos.rycee.thunderbird-addons.filtaquilla
 
           ];
           isDefault = true;

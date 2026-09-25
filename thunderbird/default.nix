@@ -33,6 +33,8 @@ let
   };
   defaultSettings = id: {
     "mail.server.server_${id}.moveOnSpam" = true;
+  };
+  identitySettings = id: {
     "mail.identity.id_${id}.reply_on_top" = 1;
     "mail.identity.id_${id}.reply_sig" = true;
   };
@@ -81,6 +83,7 @@ in
             {
               enable = true;
               profiles = [ "nix" ];
+              perIdentitySettings = identitySettings;
               settings =
                 id:
                 {
@@ -136,7 +139,9 @@ in
               enable = host.hasTags "desktop";
               profiles = [ "nix" ];
               settings = defaultSettings;
+              perIdentitySettings = identitySettings;
               # directory = "UMBC LDAP";
+              #
               messageFilters = [
                 {
                   name = "Move to Spam";

@@ -37,6 +37,7 @@ let
   identitySettings = id: {
     "mail.identity.id_${id}.reply_on_top" = 1;
     "mail.identity.id_${id}.reply_sig" = true;
+    "mail.identity.id_${id}.sig_bottom" = false;
   };
 in
 
@@ -139,7 +140,14 @@ in
               enable = host.hasTags "desktop";
               profiles = [ "nix" ];
               settings = defaultSettings;
-              perIdentitySettings = identitySettings;
+              perIdentitySettings =
+                id:
+                (identitySettings id)
+                // {
+                  "mail.identity.id_${id}.directoryServer" =
+                    "ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738";
+
+                };
               # directory = "UMBC LDAP";
               #
               messageFilters = [

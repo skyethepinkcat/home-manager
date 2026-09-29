@@ -18,6 +18,7 @@ in
   imports = [
     inputs.skyepkgs.homeManagerModules.opencode-monitor
   ];
+  home.file."${config.home.homeDirectory}/.claude/settings.json".force = true;
   sops.secrets.litellm_gateway = { };
   programs = {
     opencode-monitor = {

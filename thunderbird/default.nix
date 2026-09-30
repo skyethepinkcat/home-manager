@@ -192,6 +192,14 @@ in
                   actionValue = "${folderName}/To Systems";
                   condition = "OR (to,contains,systems@cs.umbc.edu) OR (from,contains,systems@cs.umbc.edu) OR (to,contains,root@)";
                 }
+                {
+                  name = "Capstone";
+                  enabled = true;
+                  type = filterTypes "InboxRule" "Manual";
+                  action = "Move to folder";
+                  actionValue = "${folderName}/Capstone";
+                  condition = "OR (subject,contains,capstone)";
+                }
               ];
             };
           primary = host.hasTags "work";

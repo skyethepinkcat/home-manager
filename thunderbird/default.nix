@@ -38,6 +38,7 @@ let
     "mail.identity.id_${id}.reply_on_top" = 1;
     "mail.identity.id_${id}.reply_sig" = true;
     "mail.identity.id_${id}.sig_bottom" = false;
+    "mail.identity.id_${id}.fcc_reply_follows_parent" = true;
   };
 in
 
@@ -139,15 +140,23 @@ in
             {
               enable = host.hasTags "desktop";
               profiles = [ "nix" ];
-              settings = defaultSettings;
-              perIdentitySettings =
-                id:
-                (identitySettings id)
-                // {
+              settings = lib.mkMerge [
+                defaultSettings
+                (id: {
+                  "mail.identity.id_${id}.archive_folder" = "${folderName}/Archive";
+                })
+              ];
+              perIdentitySettings = lib.mkMerge [
+
+                identitySettings
+                (id: {
                   "mail.identity.id_${id}.directoryServer" =
                     "ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738";
+                  "mail.identity.id_${id}.archive_folder" = "${folderName}/Archive";
+                  "mail.identity.id_${id}.fcc_folder" = "${folderName}/[Gmail]/Sent Mail";
 
-                };
+                })
+              ];
               # directory = "UMBC LDAP";
               #
               messageFilters = [
@@ -181,7 +190,7 @@ in
                   type = filterTypes "Manual" "PostPlugin";
                   action = "Move to folder";
                   actionValue = "${folderName}/To Systems";
-                  condition = "AND (to,contains,systems@cs.umbc.edu)";
+                  condition = "OR (to,contains,systems@cs.umbc.edu) OR (from,contains,systems@cs.umbc.edu) OR (to,contains,root@)";
                 }
               ];
             };

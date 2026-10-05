@@ -64,7 +64,7 @@ rec {
       nix_config = { };
       cachix_auth_token = { };
       satellite_access_token = { };
-      attic_auth_token = {};
+      attic_auth_token = { };
     };
   };
 

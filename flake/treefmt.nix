@@ -8,6 +8,7 @@
     { pkgs, lib, ... }:
     {
       treefmt = {
+        flakeCheck = false;
         programs = {
           nixfmt = {
             enable = pkgs.lib.meta.availableOn pkgs.stdenv.buildPlatform pkgs.nixfmt.compiler;

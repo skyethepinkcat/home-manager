@@ -75,6 +75,7 @@ rec {
   # Look up home manager options here
   # https://home-manager-options.extranix.com
   home = {
+    overwriteBackup = true;
     inherit username;
     homeDirectory = if isDarwin then "/Users/${home.username}" else "/home/${home.username}";
 

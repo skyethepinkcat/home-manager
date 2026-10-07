@@ -196,6 +196,14 @@ in
                   actionValue = "${folderName}/Capstone";
                   condition = "OR (subject,contains,capstone)";
                 }
+                {
+                  name = "UMBC Not Spam";
+                  enabled = true;
+                  type = filterTypes "PostPlugin" "Manual";
+                  action = "JunkScore";
+                  actionValue = "0";
+                  condition = "OR (from,contains,@umbc.edu)";
+                }
               ];
             };
           primary = host.hasTags "work";

@@ -4,6 +4,7 @@
   inputs,
   lib,
   config,
+  nur,
   ...
 
 }:
@@ -199,10 +200,18 @@ in
                 {
                   name = "UMBC Not Spam";
                   enabled = true;
-                  type = filterTypes "PostPlugin" "Manual";
+                  type = filterTypes "Inbox" "Manual";
                   action = "JunkScore";
                   actionValue = "0";
                   condition = "OR (from,contains,@umbc.edu)";
+                }
+                {
+                  name = "myumbc notifcations";
+                  enabled = true;
+                  type = filterTypes "InboxRule" "Manual";
+                  action = "Move to folder";
+                  actionValue = "${folderName}/Notifcations/myumbc";
+                  condition = "OR (from,contains,@my.umbc.edu)";
                 }
               ];
             };
@@ -247,9 +256,8 @@ in
           // lib.optionalAttrs (host.hasTags "work") {
             "mail.pane_config.dynamic" = 1; # Wide message view, specific to work since I use a vertical monitor there.
           };
-          extensions = [
-            inputs.nur.legacyPackages.${pkgs.stdenv.hostPlatform.system}.repos.rycee.thunderbird-addons.filtaquilla
-
+          extensions = with nur.repos.rycee.thunderbird-addons; [
+            filtaquilla
           ];
           isDefault = true;
           accountsOrder = lib.optionals (host.hasTags "work") [ "UMBC Gmail" ] ++ [

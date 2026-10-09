@@ -32,6 +32,7 @@ in
         username = host.primaryUser;
         inherit host inputs;
         nix-hosts = hosts;
+        nur = inputs.nur.legacyPackages.${host.system};
       };
     };
 

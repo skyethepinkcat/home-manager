@@ -8,6 +8,14 @@ let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 in
 {
+  imports =
+    with builtins;
+    with lib;
+    map (fn: ./${fn}) (
+      filter (fn: (fn != "default.nix" && hasSuffix ".nix" "${fn}") || pathExists ./${fn}/default.nix) (
+        attrNames (readDir ./.)
+      )
+    );
   config = lib.mkIf isDarwin {
     services.podman = {
       enable = true;

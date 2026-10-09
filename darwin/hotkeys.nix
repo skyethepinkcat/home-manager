@@ -23,7 +23,9 @@ lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
     "org.nixos.thunderbird".NSUserKeyEquivalents = {
       # Press F10 to open message filters.
       # See /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSEvent.h
-      "Message Filters" = "\\Uf70d";
+      # Actually  this isn't working because \ is not being escaped properly, I need to figure out
+      # why
+      # "Message Filters" = ''\Uf70d'';
       "Account Settings" = "@$,";
     };
   };

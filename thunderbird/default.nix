@@ -170,7 +170,7 @@ in
                   enabled = true;
                   type = filterTypes "InboxRule" "Manual";
                   action = "Move to folder";
-                  actionValue = "${folderName}/Redhat Notifications";
+                  actionValue = "${folderName}/Notifications/RedHat";
                   condition = "AND (from,contains,noreply@redhat.com)";
                 }
                 {
@@ -220,6 +220,14 @@ in
                   action = "Move to folder";
                   actionValue = "${folderName}/Notifcations/RT";
                   condition = "OR (from,contains,@rt.umbc.edu)";
+                }
+                {
+                  name = "OSS Security";
+                  enabled = true;
+                  type = filterTypes "InboxRule" "Manual";
+                  action = "Move to folder";
+                  actionValue = "${folderName}/Notifcations/OSS Sec";
+                  condition = "OR (from,contains,oss-security@lists.openwall.com) OR (to,contains,oss-security@lists.openwall.com)";
                 }
               ];
             };

@@ -41,6 +41,27 @@ let
     "mail.identity.id_${id}.sig_bottom" = false;
     "mail.identity.id_${id}.fcc_reply_follows_parent" = true;
   };
+  multiAction =
+    filter: actions:
+
+    let
+      primaryAction = builtins.elemAt actions 0;
+      otherActions = lib.lists.drop 1 actions;
+    in
+    filter
+    // {
+      inherit (primaryAction) action actionValue;
+      extraConfig = lib.concatMapStrings (
+        a:
+        ''
+          action="${a.action}"
+        ''
+        + lib.optionalString (builtins.hasAttr "actionValue" a) ''
+          actionValue="${a.actionValue}"
+        ''
+      ) otherActions;
+    };
+
 in
 
 {
@@ -205,30 +226,62 @@ in
                   actionValue = "0";
                   condition = "OR (from,contains,@umbc.edu)";
                 }
-                {
-                  name = "myumbc notifcations";
-                  enabled = true;
-                  type = filterTypes "InboxRule" "Manual";
-                  action = "Move to folder";
-                  actionValue = "${folderName}/Notifcations/myumbc";
-                  condition = "OR (from,contains,@my.umbc.edu)";
-                }
-                {
-                  name = "RT Ticket Notifcations";
-                  enabled = true;
-                  type = filterTypes "InboxRule" "Manual";
-                  action = "Move to folder";
-                  actionValue = "${folderName}/Notifcations/RT";
-                  condition = "OR (from,contains,@rt.umbc.edu)";
-                }
-                {
-                  name = "OSS Security";
-                  enabled = true;
-                  type = filterTypes "InboxRule" "Manual";
-                  action = "Move to folder";
-                  actionValue = "${folderName}/Notifcations/OSS Sec";
-                  condition = "OR (from,contains,oss-security@lists.openwall.com) OR (to,contains,oss-security@lists.openwall.com)";
-                }
+                (multiAction
+                  {
+                    name = "myumbc notifications";
+                    enabled = true;
+                    type = filterTypes "InboxRule" "Manual";
+                    condition = "OR (from,contains,@my.umbc.edu)";
+                  }
+                  [
+                    {
+                      action = "Move to folder";
+                      actionValue = "${folderName}/Notifications/myumbc";
+                    }
+                    {
+                      action = "JunkScore";
+                      actionValue = "0";
+                    }
+                  ]
+                )
+                (multiAction
+                  {
+                    name = "RT Ticket Notifications";
+                    enabled = true;
+                    type = filterTypes "InboxRule" "Manual";
+                    action = "Move to folder";
+                    actionValue = "${folderName}/Notifications/RT";
+                    condition = "OR (from,contains,@rt.umbc.edu)";
+                  }
+                  [
+                    {
+                      action = "Move to folder";
+                      actionValue = "${folderName}/Notifications/RT";
+                    }
+                    {
+                      action = "JunkScore";
+                      actionValue = "0";
+                    }
+                  ]
+                )
+                (multiAction
+                  {
+                    name = "OSS Security";
+                    enabled = true;
+                    type = filterTypes "InboxRule" "Manual";
+                    condition = "OR (from,contains,oss-security@lists.openwall.com) OR (to,contains,oss-security@lists.openwall.com)";
+                  }
+                  [
+                    {
+                      action = "Move to folder";
+                      actionValue = "${folderName}/Notifications/OSS Sec";
+                    }
+                    {
+                      action = "JunkScore";
+                      actionValue = "0";
+                    }
+                  ]
+                )
               ];
             };
           primary = host.hasTags "work";

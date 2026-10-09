@@ -23,7 +23,7 @@ let
     News = bitOr NewsRule NewsJavaScript;
     Incoming = bitOr Inbox News;
     Manual = fromHexString "0x10";
-    PostPlugin = fromHexString "0x20"; # After bayes filtering
+    PostPlugin = fromHexString "0x20"; # After bayes filtering, note that this DOES NOT need to be mixed with incoming
     PostOutgoing = fromHexString "0x40"; # After sending
     Archive = fromHexString "0x80"; # Before archiving
     Periodic = fromHexString "0x100"; # On a repeating timer
@@ -221,7 +221,7 @@ in
                 {
                   name = "UMBC Not Spam";
                   enabled = true;
-                  type = filterTypes "Inbox" "Manual";
+                  type = filterTypes "PostPlugin" "Manual";
                   action = "JunkScore";
                   actionValue = "0";
                   condition = "OR (from,contains,@umbc.edu)";

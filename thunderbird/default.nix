@@ -213,6 +213,14 @@ in
                   actionValue = "${folderName}/Notifcations/myumbc";
                   condition = "OR (from,contains,@my.umbc.edu)";
                 }
+                {
+                  name = "RT Ticket Notifcations";
+                  enabled = true;
+                  type = filterTypes "InboxRule" "Manual";
+                  action = "Move to folder";
+                  actionValue = "${folderName}/Notifcations/RT";
+                  condition = "OR (from,contains,@rt.umbc.edu)";
+                }
               ];
             };
           primary = host.hasTags "work";

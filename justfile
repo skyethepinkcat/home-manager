@@ -19,3 +19,6 @@ diff: build
 
 cache user=`whoami` hostname=`hostname`:
 	attic push skyenet $(nix build ".#homeConfigurations.{{user}}@{{hostname}}.activationPackage" --print-out-paths --no-link)
+
+deploy host target="":
+	./.scripts/deploy.sh {{host}} {{target}}

@@ -25,7 +25,12 @@
 #   ./result/install.sh          # install to $HOME
 #   tar czf dots.tar.gz -C result .   # ship somewhere else
 
-{ inputs, lib, ... }:
+{
+  inputs,
+  lib,
+  self,
+  ...
+}:
 {
   perSystem =
     {
@@ -34,27 +39,27 @@
       ...
     }:
     let
+      hosts = import inputs.nix-hosts {
+        local_domain = "taila9d2a7.ts.net";
+        inherit lib;
+      };
+
       # Build a home-manager config for the export, layering variants/export.nix
       # on top of home.nix when the file exists. This is a separate evaluation
       # from the standard homeConfigurations because the variant can change what
       # HM generates (e.g. disabling programs whose configs shouldn't be exported).
       mkHomeConfigForExport =
-        username:
-        inputs.home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        username: host:
+        self.homeConfigurations."${username}@${host}".extendModules {
           modules = [
-            ../home.nix
             ../variants/export.nix
           ];
-          extraSpecialArgs = {
-            inherit system username inputs;
-          };
         };
 
       mkDotfilesExport =
-        username:
+        username: host:
         let
-          hmConfig = mkHomeConfigForExport username;
+          hmConfig = mkHomeConfigForExport username host;
           homeDir = hmConfig.config.home.homeDirectory;
 
           # home.file entries type `executable` as nullable bool; coerce to bool
@@ -144,7 +149,7 @@
             # ── neovim config (pre-stripped by nixvim-config's own export) ───
             # nixvim-config's nvim-config-export is already sanitised for non-nix
             # use; sanitize_dir catches any stray shebangs in plugin script files.
-            cp -rT "${inputs.nixvim-config.packages.${system}.nixvim-config-export}" \
+            cp -rT "${inputs.nixvim-config.packages.${system}.default-export}" \
               "$out/.config/nvim"
             chmod -R u+w "$out/.config/nvim"
             # nix-support/ dirs are nix package metadata — useless outside nix
@@ -229,10 +234,8 @@
           '';
     in
     {
-      packages = rec {
-        dotfiles-ii69854 = mkDotfilesExport "ii69854";
-        dotfiles-skye = mkDotfilesExport "skye";
-        dotfiles = dotfiles-skye;
-      };
+      packages = lib.concatMapAttrs (hostname: host: {
+        "dotfiles-${host.primaryUser}@${hostname}" = mkDotfilesExport host.primaryUser hostname;
+      }) hosts.hosts;
     };
 }

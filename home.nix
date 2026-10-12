@@ -9,7 +9,7 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (host) isDarwin;
 
   secret_env =
     variables:
@@ -123,21 +123,6 @@ rec {
         depends = with pkgs; [ gnused ];
       })
       (shell-script {
-        script = "combine_pdfs";
-        depends = with pkgs; [
-          qpdf
-          findutils
-          gnugrep
-        ];
-      })
-      (shell-script {
-        script = "sniff";
-        depends = with pkgs; [
-          openssh
-          wireshark
-        ];
-      })
-      (shell-script {
         script = "puppet-fmt";
         inheritPath = true;
         extraOptions.bashOptions = [ "nounset" ];
@@ -162,6 +147,23 @@ rec {
         depends = with pkgs; [
           eza
           bat
+        ];
+      })
+    ]
+    ++ lib.optionals (host.hasTags "desktop") [
+      (shell-script {
+        script = "combine_pdfs";
+        depends = with pkgs; [
+          qpdf
+          findutils
+          gnugrep
+        ];
+      })
+      (shell-script {
+        script = "sniff";
+        depends = with pkgs; [
+          openssh
+          wireshark
         ];
       })
     ];

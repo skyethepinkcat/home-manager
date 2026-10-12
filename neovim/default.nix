@@ -2,25 +2,40 @@
   pkgs,
   lib,
   inputs,
+  host,
   ...
 }:
+let
+  nixvim_module =
+    if host.hasTags "low power" then
+      inputs.nixvim-config.homeModules.simple
+    else
+      inputs.nixvim-config.homeModules.default;
+
+in
 {
   imports = [
-    inputs.nixvim-config.homeModules.default
-  ];
-  config = {
-    programs = {
-      nixvim = {
-        enable = true;
-        ai.default = "claude";
-        ai.suggestions = false;
+    nixvim_module
+  ]
+    # The simple nixvim module doesn't have AI options.
+  ++ lib.optionals (!host.hasTags "low power") [
+    {
+      programs.nixvim.ai = {
+        default = "claude";
+        suggestions = false;
       };
+    }
 
-      neovide = {
-        enable = true;
-        settings = {
-          fork = true;
-        };
+  ];
+  programs = {
+    nixvim = {
+      enable = true;
+    };
+
+    neovide = {
+      enable = host.hasTags "desktop";
+      settings = {
+        fork = true;
       };
     };
   };

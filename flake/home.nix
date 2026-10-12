@@ -25,7 +25,6 @@ in
         inherit (host) system;
         overlays = [
           inputs.skyepkgs.overlays.default
-
         ];
       };
       extraSpecialArgs = {

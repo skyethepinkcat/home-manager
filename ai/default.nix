@@ -2,6 +2,8 @@
   pkgs,
   inputs,
   config,
+  lib,
+  host,
   ...
 }:
 let
@@ -13,16 +15,16 @@ let
     rev = "eebee30512751c898ff35ae43a4db6fe67e83330";
     hash = "sha256-Gf+YdT3dW5NnwOHbDD2O5y0JVsbYhD1MEHVwjd/Tq7g=";
   };
+  enable = !host.hasTags "low power";
 in
 {
   imports = [
     inputs.skyepkgs.homeManagerModules.opencode-monitor
   ];
-  home.file."${config.home.homeDirectory}/.claude/settings.json".force = true;
   sops.secrets.litellm_gateway = { };
   programs = {
     opencode-monitor = {
-      enable = true;
+      inherit enable;
       package = pkgs.opencode-monitor;
       settings = {
         paths = {
@@ -31,7 +33,7 @@ in
       };
     };
     opencode = {
-      enable = true;
+      inherit enable;
       tui.theme = "catppuccin";
       extraPackages = with pkgs; [
         rtk
@@ -167,7 +169,8 @@ in
     };
 
     claude-code = {
-      enable = true;
+      inherit enable;
+      mutableSettings = true;
       settings = {
         statusLine = {
           type = "command";

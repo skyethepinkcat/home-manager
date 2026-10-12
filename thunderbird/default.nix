@@ -110,11 +110,12 @@ in
               perIdentitySettings = identitySettings;
               settings =
                 id:
-                {
+                (defaultSettings id)
+                // {
                   "mail.identity.id_${id}.archive_folder" = "${folderName}/Archive";
                   "mail.server.server_${id}.spamActionTargetFolder" = "${folderName}/Junk";
-                }
-                // defaultSettings id;
+                  "mail.server.server_${id}.moveOnSpam" = true;
+                };
               messageFilters = [
                 {
                   name = "NixOS Discourse";
@@ -122,6 +123,20 @@ in
                   actionValue = "${folderName}/Mailing Lists/NixOS";
                   type = filterTypes "Manual" "Inbox";
                   condition = "AND (from,contains,discourse@discourse.nixos.org)";
+                }
+                {
+                  name = "KDE";
+                  action = "Move to folder";
+                  actionValue = "${folderName}/Mailing Lists/KDE";
+                  type = filterTypes "Manual" "Inbox";
+                  condition = "AND (from,contains,@kde.org)";
+                }
+                {
+                  name = "Github Notifications";
+                  action = "Move to folder";
+                  actionValue = "${folderName}/Notifications";
+                  type = filterTypes "Manual" "Inbox";
+                  condition = "AND (from,contains,notifications@github.com)";
                 }
                 {
                   name = "Verification Codes";
@@ -217,6 +232,14 @@ in
                   action = "Move to folder";
                   actionValue = "${folderName}/Capstone";
                   condition = "OR (subject,contains,capstone)";
+                }
+                {
+                  name = "Alert Manager";
+                  enabled = true;
+                  type = filterTypes "InboxRule" "Manual";
+                  action = "Move to folder";
+                  actionValue = "${folderName}/Notifications/Alert Manager";
+                  condition = "OR (from,contains,alertmanager@cs.umbc.edu)";
                 }
                 {
                   name = "UMBC Not Spam";

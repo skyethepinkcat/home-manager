@@ -9,6 +9,9 @@
 #
 # Everything is evaluated and built locally (using configured remote builders
 # for other systems); the target only receives the closure and activates it.
+#
+# Locally built paths are unsigned, so the copy uses --no-check-sigs; the SSH
+# user must be in the target's trusted-users for the daemon to honour it.
 set -euo pipefail
 
 if [[ $# -lt 1 ]]; then
@@ -43,7 +46,7 @@ echo ">>> Building $config"
 out="$(nix build "$attr.activationPackage" --no-link --print-out-paths)"
 
 echo ">>> Copying closure to $target"
-nix copy --to "ssh-ng://$target" "$out"
+nix copy --no-check-sigs --to "ssh-ng://$target" "$out"
 
 echo ">>> Activating $out on $target"
 ssh -t "$target" "HOME_MANAGER_BACKUP_EXT=backup $out/activate"

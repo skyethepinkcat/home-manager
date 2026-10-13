@@ -286,9 +286,9 @@ rec {
         };
       };
     };
-    gcc.enable = true;
+    gcc.enable = !host.hasTags "low power";
     yazi = {
-      enable = true;
+      enable = !host.hasTags "low power";
       shellWrapperName = "yy";
     };
 

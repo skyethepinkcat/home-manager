@@ -62,8 +62,34 @@ let
       ) otherActions;
     };
 
+  buildMozillaXpiAddon = nur.repos.rycee.lib.mozilla.mkBuildMozillaXpiAddon {
+    inherit (pkgs) stdenv fetchurl;
+  };
+  importexportng = buildMozillaXpiAddon rec {
+    pname = "import-export-ng";
+    version = "15.0.3";
+    addonId = "ImportExportToolsNG@cleidigh.kokkini.net";
+    url = "https://github.com/thunderbird/import-export-tools-ng/releases/download/v${version}/import-export-tools-ng-${version}-tb.xpi";
+    sha256 = "sha256-m+vvgX70JRxTNF/Vqd/CsrAL9Lpjqzjo9l/Hg/TNUYs=";
+    meta = with lib; {
+      homepage = "https://github.com/thunderbird/import-export-tools-ng";
+      description = "";
+      license = licenses.mpl20;
+      mozPermissions = [
+        "menus"
+        "activeTab"
+        "messagesRead"
+        "tabs"
+        "accountsFolders"
+        "accountsRead"
+        "messagesImport"
+        "notifications"
+        "messagesMove"
+      ];
+      platforms = platforms.all;
+    };
+  };
 in
-
 {
   # imports = [ ./options.nix ];
   config = lib.mkIf (host.hasTags "desktop") {
@@ -358,6 +384,7 @@ in
           };
           extensions = with nur.repos.rycee.thunderbird-addons; [
             filtaquilla
+            # importexportng
           ];
           isDefault = true;
           accountsOrder = lib.optionals (host.hasTags "work") [ "UMBC Gmail" ] ++ [

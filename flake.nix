@@ -46,6 +46,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
+    discord_tee = {
+      url = "github:skye-random-crap/discord_tee";
+      inputs.nixpkgs.follows = "nixpkgs";
+
+    };
   };
 
   nixConfig = {

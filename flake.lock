@@ -753,11 +753,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1791574550,
-        "narHash": "sha256-MjKDY8oHQIZIMC+jN51v47KIZANdFE7dpaV4XzW3W+0=",
+        "lastModified": 1792167418,
+        "narHash": "sha256-lZs3AbXvVAN+uH7COBsfNuJh/jxtGTDfrzP63rSbF+o=",
         "owner": "skyethepinkcat",
         "repo": "skyepkgs",
-        "rev": "6f524c355781605a9f2ebd1987e3973de6b31b48",
+        "rev": "2c041b788d4147c96417f91fa961ec2080137b60",
         "type": "github"
       },
       "original": {

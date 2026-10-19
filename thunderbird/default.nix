@@ -252,6 +252,14 @@ in
                   condition = "OR (to,contains,systems@cs.umbc.edu) OR (from,contains,systems@cs.umbc.edu) OR (to,contains,root@)";
                 }
                 {
+                  name = "Mailing list request";
+                  enabled = true;
+                  type = filterTypes "Manual" "InboxRule";
+                  action = "Move to folder";
+                  actionValue = "${folderName}/To Systems";
+                  condition = "AND (subject,contains,post from) AND (subject,contains,requres approval) AND (subject,contains,@cs.umbc.edu)";
+                }
+                {
                   name = "Capstone";
                   enabled = true;
                   type = filterTypes "InboxRule" "Manual";

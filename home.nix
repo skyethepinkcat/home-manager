@@ -307,8 +307,8 @@ rec {
       nix-direnv.enable = true;
     };
 
-    kitty = lib.mkIf (host.hasTags [ "desktop" ]) {
-      enable = true;
+    kitty = {
+      enable = host.hasTags [ "desktop" ];
       shellIntegration = {
         mode = "no-cursor";
         enableZshIntegration = true;

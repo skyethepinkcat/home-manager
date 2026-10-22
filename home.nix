@@ -309,7 +309,10 @@ rec {
 
     kitty = lib.mkIf (host.hasTags [ "desktop" ]) {
       enable = true;
-      shellIntegration.enableZshIntegration = true;
+      shellIntegration = {
+        mode = "no-cursor";
+        enableZshIntegration = true;
+      };
       font = {
         name = "Hack Nerd Font Mono";
         size = 14;
@@ -317,9 +320,7 @@ rec {
       };
       settings = lib.optionalAttrs host.isDarwin {
         macos_option_as_alt = true;
-
       };
-
     };
 
     git = {

@@ -357,6 +357,10 @@ rec {
     osFlake = "${home.homeDirectory}/Configuration/nix";
   };
 
+  services.syncthing = {
+    enable = true;
+  };
+
   nixpkgs.config.allowUnfree = true;
   nix.registry = {
     nixvim = {

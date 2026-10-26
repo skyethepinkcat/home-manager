@@ -351,7 +351,7 @@ in
                   name = "OSS Security Apache Bullshit";
                   enabled = true;
                   type = filterTypes "InboxRule" "Manual";
-                  condition = "AND (from,contains,oss-security@lists.openwall.com) AND (subject,contains,Apache)";
+                  condition = "AND (to,contains,oss-security@lists.openwall.com) AND (subject,contains,Apache)";
                   action = "Mark Read";
                 }
               ];

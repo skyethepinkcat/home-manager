@@ -359,6 +359,16 @@ rec {
 
   services.syncthing = {
     enable = true;
+    guiAddress = "${host.fqdn}:8384";
+    # Since we'll just use honnoji as a central introducer, don't bother adding it in itself and
+    # we're good.
+    settings.devices = lib.mkIf (host.name != "honnoji") {
+      honnoji = {
+        id = "4KCUY2Z-E7TD3UD-THZUOSR-LATHNVG-UWOIND5-HMNVG4A-VEFSGOT-CRV7JQD";
+        introducer = true;
+      };
+
+    };
   };
 
   nixpkgs.config.allowUnfree = true;

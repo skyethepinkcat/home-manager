@@ -80,7 +80,6 @@
       openssl
       ripgrep
       rsync
-      rtk
       sops
       watch
 

@@ -35,9 +35,6 @@ in
     opencode = {
       inherit enable;
       tui.theme = "catppuccin";
-      extraPackages = with pkgs; [
-        rtk
-      ];
       agents = {
         intern = ''
           ---
@@ -71,7 +68,6 @@ in
         autoupdate = false;
         plugin = [
           "opencode-caveman"
-          # Adding rtk declaratively really doesn't want to work, make sure to use rtk init
         ];
         provider = {
           litellm = {
@@ -192,7 +188,6 @@ in
           "caveman@caveman" = true;
         };
         extraPackages = with pkgs; [
-          rtk
           nodejs
         ];
         extraKnownMarketplaces = {

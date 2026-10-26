@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+self,
   ...
 
 }:
@@ -29,7 +30,7 @@ in
       };
       extraSpecialArgs = {
         username = host.primaryUser;
-        inherit host inputs;
+        inherit host inputs self;
         nix-hosts = hosts;
         nur = inputs.nur.legacyPackages.${host.system};
       };

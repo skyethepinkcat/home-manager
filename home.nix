@@ -6,6 +6,7 @@
   lib,
   host,
   nix-hosts,
+  self,
   ...
 }:
 let
@@ -358,16 +359,73 @@ rec {
   };
 
   services.syncthing = {
-    enable = true;
+    enable = !host.hasTags "low power";
     guiAddress = "${host.fqdn}:8384";
-    # Since we'll just use honnoji as a central introducer, don't bother adding it in itself and
-    # we're good.
-    settings.devices = lib.mkIf (host.name != "honnoji") {
-      honnoji = {
-        id = "4KCUY2Z-E7TD3UD-THZUOSR-LATHNVG-UWOIND5-HMNVG4A-VEFSGOT-CRV7JQD";
-        introducer = true;
-      };
+    settings = {
+      folders =
+        let
+          cataclysm-dda-config-path =
+            if host.isDarwin then
+              "${config.home.homeDirectory}/Library/Application Support/Cataclysm/config"
+            else
+              "${config.home.homeDirectory}/.config/cataclysm-dda";
+          cataclysm-dda-data-path =
+            if host.isDarwin then
+              "${config.home.homeDirectory}/Library/Application Support/Cataclysm"
+            else
+              "${config.home.homeDirectory}/.local/share/cataclysm-dda";
+          game-hosts = builtins.attrNames (
+            lib.filterAttrs (
+              n: h: !h.hasTags "work" && n != host.name && (!h.hasTags "low power")
+            ) nix-hosts.hosts
+          );
+        in
+        {
+          cataclysm-dda-config = lib.mkIf (!host.hasTags "work") {
+            id = "cataclysm-dda-config";
+            path = cataclysm-dda-config-path;
+            devices = game-hosts;
+            markerName = "options.json";
+            ignorePatterns = [
+              ".DS_STORE"
+              "/cache"
+              "debug.log"
+            ];
+            versioning = {
+              type = "trashcan";
+              params.cleanoutDays = "1000";
 
+            };
+          };
+          cataclysm-dda-data = lib.mkIf (!host.hasTags "work") {
+            id = "cataclysm-dda-data";
+            markerName = "graveyard";
+            path = cataclysm-dda-data-path;
+            devices = game-hosts;
+            versioning = {
+              type = "trashcan";
+              params.cleanoutDays = "1000";
+            };
+            ignorePatterns = [
+              ".DS_STORE"
+              "/cache"
+              "/config" # on macos, the data and configuration directories are combined, so we need to ignore the config directory.
+            ];
+          };
+        };
+      devices =
+        let
+          devices = {
+            # We need to manually generate these ids, sadly.
+            honnoji = {
+              id = "4KCUY2Z-E7TD3UD-THZUOSR-LATHNVG-UWOIND5-HMNVG4A-VEFSGOT-CRV7JQD";
+              introducer = true;
+            };
+            lydian.id = "HUQODAT-L6DEN42-OZX7ZCP-TAXGPLY-ZFQIC4Q-DS45E57-SIS4GC7-45LTQAK";
+            yubiwa.id = "JYAAIHZ-IFRHL3H-C7JR7BE-B2MCMVL-BX7YHSP-LT5JKF7-D3GCTGW-U4XBPQE";
+          };
+        in
+        lib.filterAttrs (name: _: name != host.name) devices;
     };
   };
 

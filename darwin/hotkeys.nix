@@ -20,6 +20,12 @@ lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
       # Command+Q closes the window rather than the application for Safari.
       "Close Window" = "@q";
     };
+    "com.googlecode.iterm2".NSUserKeyEquivalents = {
+      # Shortcut I'll never hit for printing (which I'll never do)
+      "Screen" = "@~^$p";
+      "Selection" = "@~^$p";
+      "Buffer" = "@~^$p";
+    };
     "org.nixos.thunderbird".NSUserKeyEquivalents = {
       # Press F10 to open message filters.
       # See /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSEvent.h

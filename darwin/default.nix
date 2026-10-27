@@ -47,22 +47,10 @@ in
       };
     };
     home.packages =
-      (with pkgs; [
+      with pkgs; [
         claude
         claude-usage-tracker
-      ])
-      ++ [
-        (pkgs.iterm2.overrideAttrs rec {
-          version = "3.7.3";
-
-          # Remove when https://github.com/NixOS/nixpkgs/pull/567932 is merged
-          src = pkgs.fetchzip {
-            url = "https://iterm2.com/downloads/stable/iTerm2-${
-              lib.replaceStrings [ "." ] [ "_" ] version
-            }.zip";
-            hash = "sha256-VbWFCwNqVXVZEdj8inqslBbW+K1dNM4JNzN2vVeMK7A=";
-          };
-        })
+        iterm2
       ];
   };
 }

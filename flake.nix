@@ -2,7 +2,7 @@
   description = "Home Manager Configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
     nixpkgs-edge.url = "github:NixOS/nixpkgs";
     llm-agents.url = "github:numtide/llm-agents.nix";
     treefmt-nix = {

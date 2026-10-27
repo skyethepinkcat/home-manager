@@ -47,10 +47,21 @@ in
       };
     };
     home.packages =
-      with pkgs; [
+      (with pkgs; [
         claude
         claude-usage-tracker
-        iterm2
+      ])
+      ++ [
+        (pkgs.iterm2.overrideAttrs rec {
+          version = "3.7.6";
+
+          src = pkgs.fetchzip {
+            url = "https://iterm2.com/downloads/stable/iTerm2-${
+              lib.replaceStrings [ "." ] [ "_" ] version
+            }.zip";
+            hash = "sha256-PyBYowY2O8s1CIurO4g087bFIEfrUGkc5i044L+gMWs=";
+          };
+        })
       ];
   };
 }

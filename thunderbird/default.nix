@@ -6,7 +6,6 @@
   config,
   nur,
   ...
-
 }:
 let
   # Copied from https://github.com/thunderbird/thunderbird-desktop/blob/48dbe6464245432781b9f688bb03f0b8a8e15903/mailnews/search/public/nsMsgFilterCore.idl#L7
@@ -168,7 +167,7 @@ in
                   name = "Verification Codes";
                   action = "Move to folder";
                   actionValue = "${folderName}/Verification Codes";
-                  type = filterTypes "Manual" "Inbox";
+                  type = toString filterTypes.All;
                   condition = "AND (subject,contains,verification code)";
                 }
               ];
@@ -329,6 +328,13 @@ in
                     }
                   ]
                 )
+                {
+                  name = "OSS Security Apache Bullshit";
+                  enabled = true;
+                  type = filterTypes "InboxRule" "Manual";
+                  condition = "AND (to,contains,oss-security@lists.openwall.com) AND (subject,contains,Apache)";
+                  action = "Mark Read";
+                }
                 (multiAction
                   {
                     name = "OSS Security";
@@ -347,13 +353,6 @@ in
                     }
                   ]
                 )
-                {
-                  name = "OSS Security Apache Bullshit";
-                  enabled = true;
-                  type = filterTypes "InboxRule" "Manual";
-                  condition = "AND (to,contains,oss-security@lists.openwall.com) AND (subject,contains,Apache)";
-                  action = "Mark Read";
-                }
               ];
             };
           primary = host.hasTags "work";

@@ -10,6 +10,7 @@
     (lib.optionals (!host.hasTags "low power") (
       with pkgs;
       [
+        nodejs
         mpv
         yt-dlp
         gh-dash

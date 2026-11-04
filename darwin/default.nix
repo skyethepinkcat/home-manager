@@ -53,13 +53,13 @@ in
       ])
       ++ [
         (pkgs.iterm2.overrideAttrs rec {
-          version = "3.7.6";
+          version = "3.7.7";
 
           src = pkgs.fetchzip {
             url = "https://iterm2.com/downloads/stable/iTerm2-${
               lib.replaceStrings [ "." ] [ "_" ] version
             }.zip";
-            hash = "sha256-PyBYowY2O8s1CIurO4g087bFIEfrUGkc5i044L+gMWs=";
+            hash = "sha256-+3Ri/5tkrowebzbFf6Fk9+yxs+kh5UEX2RzCKsC3ZLs=";
           };
         })
       ];

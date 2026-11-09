@@ -30,4 +30,4 @@ fi
 
 tar -cf "$TAR_FILE" -- "${stale[@]}"
 xz "$TAR_FILE"         # only reached if tar succeeded (set -e)
-trash -- "${stale[@]}" # only reached if xz succeeded
+trash "${stale[@]}" # only reached if xz succeeded

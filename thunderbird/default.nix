@@ -288,7 +288,7 @@ in
                   type = filterTypes "PostPlugin" "Manual";
                   action = "JunkScore";
                   actionValue = "0";
-                  condition = "OR (from,contains,@umbc.edu)";
+                  condition = "OR (from,contains,@umbc.edu) OR (from,contains,@cs.umbc.edu) OR (from,contains,@csee.umbc.edu)";
                 }
                 (multiAction
                   {

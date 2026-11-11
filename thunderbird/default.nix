@@ -243,6 +243,14 @@ in
                   condition = ''AND (filtaquilla@mesquilla.com#headerRegex,matches,\"sender:.*\(Cron Daemon\).*\")'';
                 }
                 {
+                  name = "Voicemail";
+                  enabled = true;
+                  type = filterTypes "InboxRule" "Manual";
+                  action = "Move to folder";
+                  actionValue = "${folderName}/Voicemail";
+                  condition = ''AND (filtaquilla@mesquilla.com#subjectRegex,matches,\"Message from .*\([+\d]+\)\")'';
+                }
+                {
                   name = "To Systems";
                   enabled = true;
                   type = filterTypes "Manual" "InboxRule";

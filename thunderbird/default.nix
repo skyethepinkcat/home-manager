@@ -283,12 +283,12 @@ in
                   condition = "OR (from,contains,alertmanager@cs.umbc.edu)";
                 }
                 {
-                  name = "Shipping Notifications";
+                  name = "Amazon Shipping Notifications";
                   enabled = true;
                   type = filterTypes "InboxRule" "Manual";
                   action = "Move to folder";
                   actionValue = "${folderName}/Notifications/Shipping";
-                  condition = "OR (from,contains,shipment-tracking@amazon.com)";
+                  condition = "OR (from,contains,shipment-tracking@amazon.com) OR (from,contains,order-update@amazon.com)";
                 }
                 {
                   name = "UMBC Not Spam";

@@ -36,6 +36,7 @@
     skyepkgs = {
       url = "github:skyethepinkcat/skyepkgs";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
     nix-hosts = {
       url = "github:skyethepinkcat/nix-hosts";
@@ -49,7 +50,6 @@
     discord_tee = {
       url = "github:skye-random-crap/discord_tee";
       inputs.nixpkgs.follows = "nixpkgs";
-
     };
   };
 
@@ -74,7 +74,6 @@
       imports = [
         ./flake
         inputs.home-manager.flakeModules.home-manager
-
       ];
 
       systems = [

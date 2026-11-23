@@ -209,23 +209,12 @@ in
 
                 identitySettings
                 (id: {
-                  "mail.identity.id_${id}.directoryServer" =
-                    "ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738";
                   "mail.identity.id_${id}.fcc_folder" = "${folderName}/[Gmail]/Sent Mail";
 
                 })
               ];
-              # directory = "UMBC LDAP";
-              #
+              directory = "UMBC LDAP";
               messageFilters = [
-                # {
-                #   name = "Move to Spam";
-                #   enabled = true;
-                #   type = filterTypes "InboxRule" "Manual";
-                #   action = "Move to folder";
-                #   actionValue = "${folderName}/[Gmail]/Spam";
-                #   condition = "AND (junk status,is,2)";
-                # }
                 {
                   name = "Redhat";
                   enabled = true;
@@ -341,7 +330,39 @@ in
                   enabled = true;
                   type = filterTypes "InboxRule" "Manual";
                   condition = "AND (all addresses,contains,oss-security@lists.openwall.com) AND (subject,contains,Apache)";
-                  action = "Mark Read";
+                  action = "Mark read";
+                }
+                {
+                  name = "Bacula Reports";
+                  enabled = true;
+                  type = filterTypes "InboxRule" "Manual";
+                  condition = "OR (subject,contains,Bacula Report -) OR (subject,contains,Logwatch for)";
+                  action = "Move to folder";
+                  actionValue = "${folderName}/Cron";
+                }
+                {
+                  name = "Alertmanager";
+                  enabled = true;
+                  type = filterTypes "InboxRule" "Manual";
+                  condition = "OR (from,contains,alertmanager@cs.umbc.edu)";
+                  action = "Move to folder";
+                  actionValue = "${folderName}/Notifications";
+                }
+                {
+                  name = "ClamAV";
+                  enabled = true;
+                  type = filterTypes "InboxRule" "Manual";
+                  condition = "OR (from,contains,clamav@mail.cs.umbc.edu)";
+                  action = "Move to folder";
+                  actionValue = "${folderName}/Cron";
+                }
+                {
+                  name = "Wordpress Updates";
+                  enabled = true;
+                  type = filterTypes "InboxRule" "Manual";
+                  condition = "OR (subject,contains,Some plugins have failed to update) OR (subject,contains,Your site has updated to WordPress) OR (subject,contains,Some plugins were automatically updated)";
+                  action = "Move to folder";
+                  actionValue = "${folderName}/Cron";
                 }
                 (multiAction
                   {
@@ -374,24 +395,15 @@ in
       profiles = {
         "v4pwe35w.default-release" = { };
         nix = {
-          # directories = {
-          #   "UMBC LDAP" = {
-          #     hostname = "directory.umbc.edu";
-          #     baseDN = "ou=People,dc=umbc,dc=edu";
-          #   };
-          # };
-          extraConfig =
-            # Manual config until https://github.com/nix-community/home-manager/pull/9965 gets
-            # merged.
-            ''
-              user_pref("ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.auth.dn", "");
-              user_pref("ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.description", "UMBC LDAP");
-              user_pref("ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.filename", "ldap.sqlite");
-              user_pref("ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.maxHits", 100);
-              user_pref("ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.saslmech.dn", "");
-              user_pref("ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738.uri", "ldap://directory.umbc.edu:389/ou=People,dc=umbc,dc=edu??sub?");
-              user_pref("mail.identity.id_855d67c7583ccb92137542609e331cbaa76b6ae5253eaae2ef11095cbea3a65d.directoryServer", "ldap_2.servers.ldap_2a004ff74a45b0e57228fe16d2763709b803d7f52486a6f84adf5a525f346738");
-            '';
+          directories = {
+            "UMBC LDAP" = {
+              hostname = "directory.umbc.edu";
+              baseDN = "ou=People,dc=umbc,dc=edu";
+              settings = id: {
+                  "ldap_2.servers.ldap_${id}.maxHits" = 100;
+              };
+            };
+          };
           settings = {
             "extensions.autoDisableScopes" = 0;
 

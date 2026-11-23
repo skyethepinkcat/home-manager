@@ -147,21 +147,21 @@ in
                   action = "Move to folder";
                   actionValue = "${folderName}/Mailing Lists/NixOS";
                   type = filterTypes "Manual" "Inbox";
-                  condition = "AND (from,contains,discourse@discourse.nixos.org)";
+                  condition = "AND (all addresses,contains,discourse@discourse.nixos.org)";
                 }
                 {
                   name = "KDE";
                   action = "Move to folder";
                   actionValue = "${folderName}/Mailing Lists/KDE";
                   type = filterTypes "Manual" "Inbox";
-                  condition = "AND (from,contains,@kde.org)";
+                  condition = "AND (all addresses,contains,@kde.org)";
                 }
                 {
                   name = "Github Notifications";
                   action = "Move to folder";
                   actionValue = "${folderName}/Notifications";
                   type = filterTypes "Manual" "Inbox";
-                  condition = "AND (from,contains,notifications@github.com)";
+                  condition = "AND (all addresses,contains,notifications@github.com)";
                 }
                 {
                   name = "Verification Codes";
@@ -232,7 +232,7 @@ in
                   type = filterTypes "InboxRule" "Manual";
                   action = "Move to folder";
                   actionValue = "${folderName}/Notifications/RedHat";
-                  condition = "AND (from,contains,noreply@redhat.com)";
+                  condition = "AND (all addresses,contains,noreply@redhat.com)";
                 }
                 {
                   name = "Cron Daemon";
@@ -256,7 +256,7 @@ in
                   type = filterTypes "Manual" "InboxRule";
                   action = "Move to folder";
                   actionValue = "${folderName}/To Systems";
-                  condition = "OR (to,contains,systems@cs.umbc.edu) OR (from,contains,systems@cs.umbc.edu) OR (to,contains,root@)";
+                  condition = "OR (all addresses,contains,systems@cs.umbc.edu) OR (all addresses,contains,systems@cs.umbc.edu) OR (to,contains,root@)";
                 }
                 {
                   name = "Mailing list request";
@@ -340,7 +340,7 @@ in
                   name = "OSS Security Apache Bullshit";
                   enabled = true;
                   type = filterTypes "InboxRule" "Manual";
-                  condition = "AND (to,contains,oss-security@lists.openwall.com) AND (subject,contains,Apache)";
+                  condition = "AND (all addresses,contains,oss-security@lists.openwall.com) AND (subject,contains,Apache)";
                   action = "Mark Read";
                 }
                 (multiAction
@@ -348,7 +348,7 @@ in
                     name = "OSS Security";
                     enabled = true;
                     type = filterTypes "InboxRule" "Manual";
-                    condition = "OR (from,contains,oss-security@lists.openwall.com) OR (to,contains,oss-security@lists.openwall.com)";
+                    condition = "OR (all addresses,contains,oss-security@lists.openwall.com)";
                   }
                   [
                     {

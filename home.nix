@@ -189,6 +189,7 @@ rec {
         cat = "smartcat";
         bat = "smartbat";
         peek = "it2cat";
+        mmv = "noglob mmv";
         ll = "${lib.getExe pkgs.eza} -l";
         neovim = "nvim";
         ckan = "ckan consoleui";

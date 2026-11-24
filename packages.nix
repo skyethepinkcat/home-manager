@@ -67,6 +67,7 @@
         nvd
         bash-language-server
         claude-agent-acp
+        mmv
       ]
     ))
     ++ (with pkgs; [

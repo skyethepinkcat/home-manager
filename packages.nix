@@ -98,5 +98,11 @@
         texliveMedium
         wireshark
       ]
+    )
+    ++ lib.optionals (host.isLinux && !host.hasTags [ "work" "desktop" ]) (
+      with pkgs;
+      [
+        ckan
+      ]
     );
 }

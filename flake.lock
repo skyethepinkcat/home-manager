@@ -375,11 +375,11 @@
     "nix-hosts": {
       "flake": false,
       "locked": {
-        "lastModified": 1788372337,
-        "narHash": "sha256-k6ylQhzqbrKoEHeTG7MGGxCQo1GJ38mS0hkYdhHtC5k=",
+        "lastModified": 1795634970,
+        "narHash": "sha256-bwtTrASyOeMj+2qygB2zlt0yitvkzBIR755JBdKNpLM=",
         "owner": "skyethepinkcat",
         "repo": "nix-hosts",
-        "rev": "375abfb15cb55b009260fe5592032c60826b2e0f",
+        "rev": "49f0b3b5f8f54c59c666bfaaa2b856960c15b3a7",
         "type": "github"
       },
       "original": {

@@ -63,6 +63,7 @@ in
               violentmonkey
               sonarr-radarr-lidarr-search
               ;
+            keepassxc-browser = mkIf host.isLinux nur.repos.rycee.firefox-addons.keepassxc-browser;
 
             tenhou_ui_translator = buildAddon {
               name = "Tenhou English UI";

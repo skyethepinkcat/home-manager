@@ -17,6 +17,10 @@ in
       "en-US"
       "ja"
     ];
+    nativeMessagingHosts = lib.optionals host.isLinux [
+      pkgs.keepassxc
+      pkgs.kdePackages.plasma-integration
+    ];
 
     enable = host.hasTags "desktop";
     policies = {

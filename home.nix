@@ -201,6 +201,9 @@ rec {
   };
 
   programs = {
+    keepassxc = {
+      enable = true;
+    };
     iterm2-shell-integration.enable = true;
     attic-client = {
       enable = true;
